@@ -1,0 +1,43 @@
+// Reference package.json "scripts" block — sectioned with labeled divider keys.
+//
+// The "------ section ------": "noop" keys are visual headers only; they never run.
+// Pattern from next-template. This is JSONC for the comments — in a real package.json
+// (plain JSON) keep the divider keys, drop these // comments.
+//
+// Adapt the tools to your stack; keep the conventions:
+//   - sections for scannability
+//   - test:coverage present (coverage wired day one — conventions.md §3)
+//   - e2e / e2e:ui / e2e:report all present (conventions.md §4)
+//   - a single check:all that mirrors CI exactly (conventions.md §5)
+{
+  "scripts": {
+    "------------------- dev -------------------": "noop",
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+
+    "------------------- code quality -------------------": "noop",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:css": "stylelint '**/*.css'",
+    "lint:md": "markdownlint-cli2 '**/*.md'",
+    "format": "biome check --write .",
+    "format:check": "biome check .",
+    "typecheck": "tsc --noEmit",
+    "lint:all": "biome check . && eslint . && stylelint '**/*.css' && markdownlint-cli2 '**/*.md'",
+
+    "------------------- testing -------------------": "noop",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+
+    "------------------- e2e -------------------": "noop",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "e2e:report": "playwright show-report",
+
+    "------------------- gate (local == CI) -------------------": "noop",
+    "check:all": "pnpm format:check && pnpm lint && pnpm lint:css && pnpm lint:md && pnpm typecheck && pnpm test"
+  }
+}

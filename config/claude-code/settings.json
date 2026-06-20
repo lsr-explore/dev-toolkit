@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "default",
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.*)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Read(./**/id_rsa*)",
+      "Read(./secrets/**)",
+      "Read(./**/secrets/**)",
+      "Read(./**/credentials*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gcloud/**)",
+      "Bash(rm -rf*)",
+      "Bash(sudo*)",
+      "Bash(curl*|*sh)",
+      "Bash(wget*|*sh)",
+      "Bash(*| sh)",
+      "Bash(*| bash)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(eval*)"
+    ],
+    "ask": [
+      "Bash(git push*)",
+      "Bash(git reset --hard*)",
+      "Bash(npm publish*)",
+      "Bash(pnpm publish*)",
+      "Bash(pnpm install*)",
+      "Bash(gh release*)"
+    ],
+    "allow": [
+      "Read(./**)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git branch*)",
+      "Bash(git checkout*)",
+      "Bash(npm run*)",
+      "Bash(npm test*)",
+      "Bash(pnpm*)",
+      "Bash(biome*)",
+      "Bash(tsc*)",
+      "Bash(vitest*)",
+      "Bash(playwright*)"
+    ]
+  }
+}

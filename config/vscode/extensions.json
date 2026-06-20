@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "vscodevim.vim",
+    "biomejs.biome",
+    "dbaeumer.vscode-eslint",
+    "ms-playwright.playwright"
+  ]
+}

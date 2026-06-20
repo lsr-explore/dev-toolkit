@@ -1,0 +1,38 @@
+{
+  // ---- Formatting: Biome over Prettier ----
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit",
+    "source.fixAll.eslint": "explicit"
+  },
+  "[json]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[jsonc]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[javascriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+
+  // ---- Vim (vscodevim.vim) ----
+  // Use the system clipboard for unnamed yank/paste.
+  "vim.useSystemClipboard": true,
+  // Let well-known VSCode chords win over Vim (so Cmd/Ctrl shortcuts still work).
+  "vim.useCtrlKeys": true,
+  "vim.handleKeys": {
+    "<C-c>": false,
+    "<C-v>": false,
+    "<C-a>": false,
+    "<C-f>": false
+  },
+  // `jk` to leave insert mode; space as leader.
+  "vim.insertModeKeyBindings": [
+    { "before": ["j", "k"], "after": ["<Esc>"] }
+  ],
+  "vim.leader": "<space>",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["<leader>", "w"], "commands": ["workbench.action.files.save"] },
+    { "before": ["<leader>", "e"], "commands": ["workbench.view.explorer"] }
+  ],
+  // Keep VSCode's own undo/redo stack rather than Vim's.
+  "vim.foldfix": true
+}

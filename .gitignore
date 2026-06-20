@@ -1,0 +1,9 @@
+# This is a snippet library — keep it free of build/runtime junk.
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Never commit secrets (AI cache writes to $AI_CACHE_DIR / tmp, outside the repo)
+.env
+.env.*
