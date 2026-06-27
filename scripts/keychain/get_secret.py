@@ -1,7 +1,7 @@
 """get_secret.py — read a secret from the macOS Keychain via the `security` CLI.
 
 Zero dependencies: shells out to `security` (macOS only). Convention is a single
-flat keyring — service ``lsr-dev-keys``, one account per key name.
+flat keyring — service ``dev-keys``, one account per key name.
 
 Library::
 
@@ -18,7 +18,7 @@ from __future__ import annotations
 import subprocess
 import sys
 
-DEFAULT_SERVICE = "lsr-dev-keys"
+DEFAULT_SERVICE = "dev-keys"
 
 
 def get_secret(account: str, service: str = DEFAULT_SERVICE) -> str:
@@ -26,7 +26,7 @@ def get_secret(account: str, service: str = DEFAULT_SERVICE) -> str:
 
     Args:
         account: the key name, e.g. ``"ANTHROPIC_API_KEY"``.
-        service: the keyring service; defaults to ``"lsr-dev-keys"``.
+        service: the keyring service; defaults to ``"dev-keys"``.
     """
     try:
         out = subprocess.check_output(
