@@ -45,7 +45,7 @@ Playwright/vitest-axe setup instead of growing this script.
 
 # Or pass a URL
 ./a11y-check.sh http://localhost:5173
-./a11y-check.sh https://staging.example.com/pricing
+./a11y-check.sh https://google.com
 
 # Help
 ./a11y-check.sh -h
