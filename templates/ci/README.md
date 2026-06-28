@@ -39,7 +39,9 @@ extend the sections to fit.
 - **PR template** has what/why, a related-issue line (paste the full issue URL so
   GitHub unfurls it to the issue title), a screenshots/video prompt for UI changes,
   and a short checklist including an accessibility prompt (keyboard, focus,
-  semantics, contrast) — drop the a11y line on a backend-only repo.
+  semantics, contrast) — drop the a11y line on a backend-only repo. It also carries
+  an authoring tip to leave inline diff comments prefaced with "Note to reviewer:"
+  for line-level context.
 - **Issue template** is one combined bug/feature form. To offer a chooser instead,
   split it into `.github/ISSUE_TEMPLATE/bug_report.md` and `feature_request.md`
   (each keeps its own front matter), or add a `config.yml` there to set

@@ -1,6 +1,10 @@
 <!-- Copy to .github/pull_request_template.md in your repo. GitHub auto-fills new
      PR descriptions with this. Keep it short — delete sections that don't apply. -->
 
+<!-- Tip: for any change that isn't self-explanatory, leave an inline comment on
+     the specific line(s) in the diff to give reviewers context — preface each with
+     "Note to reviewer:" so it reads as author context, not part of the code. -->
+
 ## What & why
 
 <!-- What does this change, and why? -->
