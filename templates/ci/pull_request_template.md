@@ -31,7 +31,6 @@
 
 ## Checklist
 
-- [ ] Lint, typecheck, and tests pass locally
 - [ ] Self-reviewed the diff
 - [ ] Updated docs / comments where behavior changed
 - [ ] Accessibility considered — keyboard, focus order, semantics, contrast (if UI changed)
