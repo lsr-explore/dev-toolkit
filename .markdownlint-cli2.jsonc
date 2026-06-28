@@ -1,0 +1,37 @@
+{
+  // markdownlint-cli2 config for this repo.
+  // Run with: npm run lint:md   (or: npm run lint:md:fix)
+  // `globs` means you don't pass file args; `gitignore` skips node_modules/,
+  // .claude/, playwright-report/, test-results/ automatically.
+  "globs": ["**/*.md"],
+  "gitignore": true,
+  // Belt-and-suspenders: explicitly skip vendored/generated trees even if a run
+  // ignores .gitignore for some reason.
+  "ignores": [
+    "**/node_modules/**",
+    "**/.claude/**",
+    "**/playwright-report/**",
+    "**/test-results/**"
+  ],
+  "config": {
+    "default": true,
+
+    // This repo wraps prose by feel (~85–90 cols) and has long links/tables —
+    // an 80-col limit is the wrong fit. Set a number here if you want a ceiling.
+    "MD013": false,
+
+    // Templates intentionally use HTML comments and <placeholder> tokens.
+    "MD033": false,
+
+    // LICENSE, the PR template (leads with `- Resolves #123`), and front-matter
+    // files legitimately don't start with an H1.
+    "MD041": false,
+
+    // The issue/PR templates use bold sub-labels (**Steps to reproduce**) on
+    // purpose — lighter than real headings.
+    "MD036": false,
+
+    // Table pipe-alignment is cosmetic and painful to hand-maintain.
+    "MD060": false
+  }
+}

@@ -8,7 +8,7 @@ out cleanly.
 
 ## Layout
 
-```
+```text
 scripts/
   keychain/        Retrieve API keys from the macOS Keychain (TS + Python) + security-CLI cheatsheet
   worktrees/       The `wt` git-worktree helper + install instructions

@@ -10,7 +10,7 @@ the new worktree straight into an iTerm2 tab running `claude`, or a VSCode windo
 
 ## Commands
 
-```
+```text
 wt new <branch> [-c] [-e] [--base DIR] [--link-env] [--setup CMD]
                                          create or check out a worktree
 wt open <branch> [-c] [-e]               open an existing worktree

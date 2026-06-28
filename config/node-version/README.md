@@ -135,7 +135,7 @@ doesn't *give* you the right one. Use a `>=` floor so you're not rejecting newer
 
 ## How they layer
 
-```
+```text
 .nvmrc        → Node version, universal + CI-friendly      (everyone reads it)
    +
 Corepack      → exact package manager                       (kills pm drift)
@@ -145,7 +145,7 @@ engines       → enforced floor, fail-fast guardrail         (CI + engine-stric
 
 or, if you want auto-switching with no shell ritual:
 
-```
+```text
 Volta         → Node + package manager, auto-switch         (Volta users)
    +
 .nvmrc        → same Node version, for CI + non-Volta folks (redundant but cheap)

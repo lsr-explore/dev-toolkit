@@ -16,7 +16,7 @@ listening and kills nothing. You have to opt in with `-f`/`--force` to send a
 signal. This avoids the muscle-memory accident of nuking the wrong process when
 you fat-finger a port.
 
-```
+```text
 kill-port [-f|--force] [-9|--kill] <port>
 
 -f, --force   actually send the signal (default: report only)
@@ -53,7 +53,7 @@ kill-port -f -9 3000     # SIGKILL the listener(s) on :3000
 
 Example session:
 
-```
+```text
 $ kill-port 3000
 Listening on TCP port 3000:
 COMMAND   PID   USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME

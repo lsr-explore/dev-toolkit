@@ -49,7 +49,7 @@ in §1, cumulative status in §2. Each fact has one home.
 
 ## Formatting
 
-- Bullets use `-` (dash). Never start a wrapped line with `+ ` or `* ` — markdownlint
+- Bullets use `-` (dash). Never start a wrapped line with `+` or `*` — markdownlint
   reads it as a list marker and the file's list-style cascades (MD004).
 - Surround lists and tables with blank lines; headings increment by one level only.
 - Run the repo's markdown linter before committing log edits.

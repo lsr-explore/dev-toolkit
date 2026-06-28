@@ -33,7 +33,7 @@ npx tsx cli.ts --version
 
 Both print the same thing for the demo command:
 
-```
+```text
 $ python cli.py greet World
 Hello, World!
 ```

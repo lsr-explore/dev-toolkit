@@ -80,9 +80,11 @@ entry pointing at the script instead.
 ## Bypassing intentionally
 
 - **One-off** — skip all pre-commit hooks for a single commit:
+
   ```bash
   git commit --no-verify
   ```
+
 - **A specific `.env` you really do want tracked** — add its exact path to
   `ALLOW_ENV` near the top of the hook (space-separated), e.g.
   `ALLOW_ENV="config/.env.defaults"`.
