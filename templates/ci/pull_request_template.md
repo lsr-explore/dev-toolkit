@@ -14,7 +14,7 @@
 <!-- `#123` links the issue and shows its title on hover. A closing keyword
      (Closes / Fixes / Resolves) auto-closes it on merge. Use owner/repo#123 or the
      full URL only when the issue lives in another repo. -->
-Resolves #123
+- Resolves #123
 
 ## What & why
 
