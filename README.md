@@ -18,6 +18,7 @@ scripts/
   secret-guard/    Pre-commit hook that blocks committing .env files + common secret patterns
   kill-port/       Find and kill the process listening on a TCP port (macOS, lsof)
   a11y-check/      Standalone axe-core accessibility smoke check against a local URL
+  playwright/      Minimal end-to-end Playwright test (points at google.com) + config
 config/
   claude-code/     Security-focused Claude Code settings.json + notes
   iterm2/          iTerm2 setup notes
