@@ -57,21 +57,29 @@ def cmd_greet(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    # Global verbosity flags live on a parent parser so they're accepted BOTH
+    # before and after the subcommand (`cli -v greet X` and `cli greet X -v`).
+    # default=SUPPRESS is the key: an absent flag leaves the namespace untouched,
+    # so the copy on the subparser can't clobber a value set before the command
+    # (the classic argparse subparser footgun). -v and -q stay mutually exclusive.
+    common = argparse.ArgumentParser(add_help=False)
+    verbosity = common.add_mutually_exclusive_group()
+    verbosity.add_argument("-v", "--verbose", action="store_true",
+                           default=argparse.SUPPRESS, help="enable debug logging")
+    verbosity.add_argument("-q", "--quiet", action="store_true",
+                           default=argparse.SUPPRESS, help="only log warnings and errors")
+
     parser = argparse.ArgumentParser(
         prog=PROG,
         description="Boilerplate CLI — copy this file and replace the greet command.",
+        parents=[common],
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {VERSION}")
-
-    # Global verbosity flags. -v and -q are mutually exclusive.
-    verbosity = parser.add_mutually_exclusive_group()
-    verbosity.add_argument("-v", "--verbose", action="store_true", help="enable debug logging")
-    verbosity.add_argument("-q", "--quiet", action="store_true", help="only log warnings and errors")
 
     sub = parser.add_subparsers(dest="command", metavar="<command>")
     sub.required = True  # Python 3.8-safe way to require a subcommand.
 
-    greet = sub.add_parser("greet", help="print a greeting (the demo action)")
+    greet = sub.add_parser("greet", parents=[common], help="print a greeting (the demo action)")
     greet.add_argument("name", help="who to greet")
     greet.add_argument("--greeting", default="Hello", help="greeting word (default: Hello)")
     greet.add_argument("--times", type=int, default=1, help="repeat count (default: 1)")
@@ -83,7 +91,9 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    configure_logging(args.verbose, args.quiet)
+    # getattr defaults because SUPPRESS means the attr is absent unless the flag
+    # was actually passed (in either position).
+    configure_logging(getattr(args, "verbose", False), getattr(args, "quiet", False))
     try:
         return args.func(args)
     except KeyboardInterrupt:
