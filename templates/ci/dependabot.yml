@@ -1,0 +1,46 @@
+# Dependabot config — automated dependency update PRs.
+#
+# Copy this file to .github/dependabot.yml in your repo. GitHub picks it up
+# automatically (no Action needed). Tweak points are flagged with "TWEAK".
+#
+# Covers npm (works for pnpm/yarn/npm) and the GitHub Actions in your workflows.
+# A pip block for a Python backend is included, commented out.
+
+version: 2
+updates:
+  # JS/TS dependencies. The "npm" ecosystem handles pnpm and yarn too — it reads
+  # whichever lockfile you have. TWEAK: set `directory` to where package.json lives.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    # Batch routine bumps into a few PRs instead of one-per-package, to cut noise.
+    groups:
+      dev-dependencies:
+        dependency-type: development
+      production-minor-patch:
+        dependency-type: production
+        update-types: [minor, patch]
+    # TWEAK: ignore majors for a framework you upgrade deliberately, e.g.
+    # ignore:
+    #   - dependency-name: next
+    #     update-types: [version-update:semver-major]
+
+  # Keep the actions pinned in .github/workflows/*.yml (e.g. ci.yml) up to date.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns: ["*"]
+
+  # Python backend — uncomment if the repo has one. TWEAK the directory.
+  # - package-ecosystem: pip
+  #   directory: /
+  #   schedule:
+  #     interval: weekly
+  #   groups:
+  #     python:
+  #       patterns: ["*"]

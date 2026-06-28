@@ -28,7 +28,7 @@ config/
 templates/
   docs/            Copyable doc scaffolding: project_log + ADR templates (with instructions)
   conventions/     Tooling conventions + per-repo verify checklist + reference configs
-  ci/              GitHub starters: minimal frontend CI workflow + PR / issue templates
+  ci/              GitHub starters: minimal frontend CI + PR / issue templates + dependabot
 docs/
   toolchain.md     Inventory of the tools used in the next-template repo
   references.md    External resources: agent skills, package hygiene, TS reference

@@ -9,6 +9,7 @@ pipeline.
 | [`ci.yml`](./ci.yml) | `.github/workflows/ci.yml` | The lint/typecheck/test workflow |
 | [`pull_request_template.md`](./pull_request_template.md) | `.github/pull_request_template.md` | Auto-fills new PR descriptions |
 | [`issue_template.md`](./issue_template.md) | `.github/ISSUE_TEMPLATE/issue.md` | Default new-issue body |
+| [`dependabot.yml`](./dependabot.yml) | `.github/dependabot.yml` | Automated dependency-update PRs |
 
 ## Use the workflow
 
@@ -42,6 +43,15 @@ extend the sections to fit.
   split it into `.github/ISSUE_TEMPLATE/bug_report.md` and `feature_request.md`
   (each keeps its own front matter), or add a `config.yml` there to set
   `blank_issues_enabled` and contact links.
+
+## Dependabot
+
+`dependabot.yml` opens weekly dependency-update PRs — no Action required, GitHub
+runs it once the file is on the default branch. It covers **npm** (pnpm/yarn/npm
+all read from their lockfile) and the **GitHub Actions** pinned in your workflows,
+with related bumps grouped into a few PRs instead of one per package. A **pip**
+block for a Python backend is included commented out. Tweak the `directory`,
+schedule, and any majors you'd rather upgrade by hand (see the `ignore` example).
 
 ## How this differs from a heavier pipeline
 
