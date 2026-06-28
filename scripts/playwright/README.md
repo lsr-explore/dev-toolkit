@@ -1,8 +1,8 @@
 # Playwright example
 
 A minimal end-to-end Playwright test that points at the live **google.com** — a
-smoke test plus an axe-core accessibility scan. A copy-paste starting point for a
-browser test: one spec, one tiny config.
+smoke test plus two axe-core accessibility scans (one strict, one severity-gated).
+A copy-paste starting point for a browser test: one spec, one tiny config.
 
 > **Dependencies:** [`@playwright/test`][pw] and [`@axe-core/playwright`][axe] —
 > real dev dependencies, unlike most snippets here. Install them and the browser
@@ -44,23 +44,25 @@ first (e.g. click the **Accept all** button before locating the field).
 - Prefer role-based locators (`getByRole`, `getByLabel`) over CSS selectors — they
   track what users and assistive tech actually perceive, and they break less.
 
-## The accessibility scan
+## The accessibility scans
 
-The third test scans the page with axe-core via `AxeBuilder` and logs whatever it
-finds. Because google.com isn't a clean a11y target — it reports a few
-minor/moderate issues (`landmark-one-main`, `page-has-heading-one`, `region`,
-`aria-allowed-role`) — the example gates only on **serious/critical** violations so
-it stays green while still exercising the scan.
+Two axe-core tests show two assertion styles — and the spec **fails on purpose**,
+because that red is the point:
 
-Against **your own app**, drop the severity filter and assert zero outright:
+- **Strict** (`no accessibility violations …`) asserts zero violations. That's how a
+  real gate behaves: fail the build on *any* a11y violation. google.com isn't clean,
+  so it fails — logging what axe found (`aria-allowed-role`, `landmark-one-main`,
+  `page-has-heading-one`, `region`). Point it at your own app and keep it green by
+  fixing the issues. Wrap the body in `test.fail()` if you want the demonstration
+  without a red suite.
+- **Severity-gated** (`no serious or critical …`) fails only on serious/critical
+  issues — a pragmatic gate when you're adopting a11y testing on an existing app and
+  need to triage, ratcheting the threshold down as you clear violations. It passes
+  against google.com (whose issues are minor/moderate).
 
-```ts
-const { violations } = await new AxeBuilder({ page }).analyze();
-expect(violations).toEqual([]);
-```
-
-This is the per-route, in-suite setup the [`a11y-check`](../a11y-check) snippet
-points you toward once you outgrow a single-URL smoke check.
+So a run reports **3 passed / 1 failed** (exit non-zero), by design. This is the
+per-route, in-suite setup the [`a11y-check`](../a11y-check) snippet points you toward
+once you outgrow a single-URL smoke check.
 
 [pw]: https://playwright.dev
 [axe]: https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright

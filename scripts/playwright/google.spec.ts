@@ -1,11 +1,11 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-// A minimal end-to-end smoke test against the live google.com, plus an accessibility
-// scan via axe-core. It needs network access; in some regions Google serves a
-// cookie-consent page first, so the assertions key off the stable page <title>
-// rather than page chrome. For your own app, point `goto` at a local URL and prefer
-// role-based locators (getByRole/…).
+// A minimal end-to-end smoke test against the live google.com, plus two axe-core
+// accessibility scans showing two assertion styles. It needs network access; in some
+// regions Google serves a cookie-consent page first, so the smoke assertions key off
+// the stable page <title> rather than page chrome. For your own app, point `goto` at
+// a local URL and prefer role-based locators (getByRole/…).
 
 test("home page loads", async ({ page }) => {
   await page.goto("https://www.google.com/");
@@ -20,11 +20,13 @@ test("has a search box", async ({ page }) => {
   await expect(searchBox).toBeVisible();
 });
 
-test("no serious accessibility violations", async ({ page }) => {
+// Strict scan — the real-world gate: a11y tests SHOULD fail the build on any
+// violation. google.com isn't a clean target, so this test fails on purpose; that
+// red is axe doing its job. Point it at your own app and keep it green by fixing the
+// issues. (Wrap the body in `test.fail()` if you want the demo without a red suite.)
+test("no accessibility violations (strict — fails on google.com by design)", async ({ page }) => {
   await page.goto("https://www.google.com/");
   const { violations } = await new AxeBuilder({ page }).analyze();
-
-  // Surface everything axe found in the test output / HTML report.
   if (violations.length) {
     console.log(
       `axe: ${violations.length} violation type(s) — ${violations
@@ -32,10 +34,15 @@ test("no serious accessibility violations", async ({ page }) => {
         .join(", ")}`,
     );
   }
+  expect(violations).toEqual([]);
+});
 
-  // google.com isn't a clean a11y target, so this example gates only on
-  // serious/critical issues. Against YOUR OWN app, assert zero outright instead:
-  //   expect(violations).toEqual([]);
+// Severity-gated scan — a pragmatic gate for adopting a11y testing on an existing
+// app: fail only on the worst issues now, then ratchet the threshold down as you
+// clear the rest. This passes against google.com (its issues are minor/moderate).
+test("no serious or critical accessibility violations (severity-gated)", async ({ page }) => {
+  await page.goto("https://www.google.com/");
+  const { violations } = await new AxeBuilder({ page }).analyze();
   const serious = violations.filter(
     (v) => v.impact === "serious" || v.impact === "critical",
   );
