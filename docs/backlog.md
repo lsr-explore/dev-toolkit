@@ -35,6 +35,12 @@ per-folder `README.md` (see [`../CLAUDE.md`](../CLAUDE.md)).
   occasional containerized project.
 - **TS-tips agent skill** — promote the TODO in [`references.md`](./references.md):
   package the TypeScript tips as a reviewable Claude Code skill.
+- **A11y doc** - create an a11y doc for teams to add to their projects as an accessibility overview.
+- **Perf docs** - create a perf doc for teams to add to their projects.
+- **AI collaboration** - create an ai collaboration doc that provides team a framework for how they collaborate with ai tools
+- **Boilerplate READMEs** — copy-paste README templates (project root, service/package,
+  component library) with the right sections: what/why, quickstart, run, architecture
+  pointer. Pairs with the [`docs`](../templates/docs) doc-discipline scaffolding.
 
 *Shipped so far: CLI boilerplate, secret-guard, kill-port, node-version, http-fetch,
 a11y-check, playwright, the `wt` post-create hook, and CI starters — see the layout
