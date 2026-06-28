@@ -1,0 +1,5 @@
+# Code owners for dev-toolkit.
+# Pairs with the branch ruleset's "Require review from Code Owners": every change
+# needs @lsr-explore's review before it can merge to a protected branch.
+# (As repo admin on the ruleset's bypass list, you can still merge your own PRs.)
+* @lsr-explore
