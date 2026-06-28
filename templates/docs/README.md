@@ -1,5 +1,8 @@
 # Documentation templates
 
+> **Purpose:** Doc scaffolding: `project_log` + ADR templates with guides.
+> **Copy to:** `docs/` · **Use when:** adopting documentation discipline in a repo.
+
 Copy-ready scaffolding for two documentation habits that scale well on solo and
 small-team projects:
 

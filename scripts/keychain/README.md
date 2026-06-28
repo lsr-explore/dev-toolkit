@@ -1,5 +1,8 @@
 # Keychain secrets
 
+> **Purpose:** Read API keys from the macOS Keychain at runtime instead of `.env`. · **Lang:** TS + Python · **Deps:** none (macOS `security` CLI)
+> **Copy to:** your project — keep the filename + this README. · **Use when:** you want secrets off-disk on a dev machine; not Linux CI (inject via env there). · **Related:** [secret-guard](../secret-guard), [claude-code settings](../../config/claude-code)
+
 Store API keys in the macOS Keychain instead of `.env` files, and read them at
 runtime with the helper in your language of choice. Both helpers shell out to the
 built-in `security` CLI, so there is **zero runtime dependency** to install.

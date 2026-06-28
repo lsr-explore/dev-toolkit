@@ -1,5 +1,8 @@
 # Tooling conventions
 
+> **Purpose:** Opinionated JS/TS tooling conventions: checklist + rationale + reference configs.
+> **Copy to:** point an assistant at `conventions.md`. · **Use when:** standing up or auditing a repo's tooling. · **Related:** [toolchain.md](../../docs/toolchain.md)
+
 My opinionated defaults for a JS/TS project — the tool choices, the scripts, and the
 conventions that **break silently and need re-checking per repo**. Captured so they
 survive moving between projects (or companies), with or without an AI assistant.

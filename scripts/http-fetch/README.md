@@ -1,5 +1,8 @@
 # HTTP fetch with timeout + retry
 
+> **Purpose:** fetch wrapper — per-attempt timeout + retry/backoff + typed errors. · **Lang:** TS (Node 18+) + Python · **Deps:** none
+> **Copy to:** your project. · **Use when:** a script/backend needs resilient HTTP without `axios`/`requests`. · **Related:** [ai-cache](../ai-cache)
+
 A small **HTTP client wrapper** that adds the three things a raw `fetch` /
 `urlopen` lacks for talking to flaky networks and rate-limited APIs: a
 **per-attempt timeout**, **retry with exponential backoff + jitter**, and a

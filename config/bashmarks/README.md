@@ -1,5 +1,8 @@
 # bashmarks
 
+> **Purpose:** (personal env) one-letter directory bookmarks.
+> **Copy to:** n/a (machine setup) · **Use when:** jumping between unrelated project roots. · **Related:** [worktrees](../../scripts/worktrees)
+
 [bashmarks](https://github.com/huyng/bashmarks) gives you one-letter directory
 bookmarks: save the current dir under a name, then jump to it from anywhere.
 

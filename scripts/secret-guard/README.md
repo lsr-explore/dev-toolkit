@@ -1,5 +1,8 @@
 # secret-guard
 
+> **Purpose:** Pre-commit hook blocking `.env` + common secret patterns. · **Lang:** POSIX sh · **Deps:** git + grep
+> **Copy to:** `.git/hooks` or `core.hooksPath`. · **Use when:** you want to stop secrets leaking into a commit; pre-commit only, not a history scanner. · **Related:** [keychain](../keychain)
+
 A git **pre-commit hook** that blocks secrets from entering the repo. Pure POSIX
 `sh` + `git` + `grep` + `awk` — **zero runtime dependency** to install, works on
 macOS (BSD tools) and Linux (GNU tools).

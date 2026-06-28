@@ -1,5 +1,8 @@
 # Playwright example
 
+> **Purpose:** Minimal Playwright e2e + axe-core a11y example (points at google.com). · **Lang:** TS · **Deps:** `@playwright/test`, `@axe-core/playwright`
+> **Copy to:** your project. · **Use when:** starting browser/e2e tests; shows strict + severity-gated a11y assertions. · **Related:** [a11y-check](../a11y-check)
+
 A minimal end-to-end Playwright test that points at the live **google.com** — a
 smoke test plus two axe-core accessibility scans (one strict, one severity-gated).
 A copy-paste starting point for a browser test: one spec, one tiny config.

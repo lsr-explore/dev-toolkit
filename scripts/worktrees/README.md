@@ -1,5 +1,8 @@
 # `wt` — git worktree helper
 
+> **Purpose:** git-worktree helper (new/open/ls/rm) that opens in iTerm2/VSCode. · **Lang:** zsh · **Deps:** git (`osascript`/`code` optional)
+> **Copy to:** `~/.local/bin`. · **Use when:** you run parallel branches as worktrees on macOS with terminal integration. · **Related:** [iterm2](../../config/iterm2)
+
 A lightweight zsh helper for git worktrees. Worktrees are placed at
 `<base>/<branch>/<repo-name>`, where `<base>` defaults to the grouping directory
 two levels above the repo (so it matches a `main/<repo>` layout). It can also open

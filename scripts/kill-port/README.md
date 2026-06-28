@@ -1,5 +1,8 @@
 # kill-port
 
+> **Purpose:** Find and kill the process on a TCP port. · **Lang:** POSIX sh · **Deps:** `lsof` + `kill` (macOS)
+> **Copy to:** your project or `bin`. · **Use when:** a dev server is stuck on a port; not Linux — use `fuser`/`ss` there.
+
 Find and (optionally) kill whatever is listening on a TCP port — the usual fix
 for "address already in use" after a dev server didn't shut down cleanly.
 

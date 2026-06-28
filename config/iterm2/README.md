@@ -1,5 +1,8 @@
 # iTerm2
 
+> **Purpose:** (personal env) iTerm2 setup notes — sync prefs to a folder.
+> **Copy to:** n/a (machine setup) · **Use when:** setting up your terminal. · **Related:** [worktrees](../../scripts/worktrees)
+
 Notes for reproducing the terminal setup. iTerm2's settings live in a binary plist,
 so rather than committing that, the reliable approach is **point iTerm2 at a synced
 folder** and let it export/import there.

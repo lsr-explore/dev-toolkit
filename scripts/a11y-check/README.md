@@ -1,5 +1,8 @@
 # a11y smoke check
 
+> **Purpose:** One-command axe-core accessibility smoke check of a URL. · **Lang:** sh · **Deps:** `npx @axe-core/cli` + Chrome/driver
+> **Copy to:** your project. · **Use when:** a quick a11y pass on a small site with no test setup; not a replacement for a real suite — graduate to Playwright/vitest-axe. · **Related:** [playwright](../playwright)
+
 A one-command accessibility smoke check for a **single URL**, with no test
 harness to wire up. It shells out to the [axe-core][axe] engine via the
 `@axe-core/cli` tool and fails (non-zero exit) when there are violations, so you

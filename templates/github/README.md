@@ -1,5 +1,8 @@
 # GitHub starters — CI + repo templates
 
+> **Purpose:** GitHub repo starters: CI workflow, PR + issue templates, dependabot.
+> **Copy to:** `.github/` · **Use when:** new-repo scaffolding. · **Related:** [node-version](../../config/node-version)
+
 A minimal `lint → typecheck → test` gate for a frontend project, plus basic PR and
 issue templates. Heavily commented copy-paste starting points — **not** a full
 pipeline.

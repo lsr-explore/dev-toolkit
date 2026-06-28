@@ -1,5 +1,8 @@
 # Node version pinning
 
+> **Purpose:** Pin Node across a team: `.nvmrc` vs Volta vs Corepack + `engines`.
+> **Copy to:** your project root. · **Use when:** pinning Node across dev + CI. · **Related:** [github](../../templates/github)
+
 How to pin Node (and the package manager) so a team — and a pile of git worktrees —
 all run the same toolchain. Four mechanisms, three jobs: pin **Node**, pin the
 **package manager**, and set an enforced **floor**. They layer; pick the combo that

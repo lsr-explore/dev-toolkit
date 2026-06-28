@@ -1,5 +1,8 @@
 # Biome
 
+> **Purpose:** `biome.json` + "why Biome over Prettier".
+> **Copy to:** your project root. · **Use when:** you want one tool to format + lint JS/TS/JSON. · **Related:** [conventions](../../templates/conventions)
+
 `biome.json` lifted from the next-template setup — one tool for formatting **and**
 linting JS/TS/JSON, replacing Prettier (and overlapping a lot of ESLint).
 

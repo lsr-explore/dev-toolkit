@@ -1,5 +1,8 @@
 # CLI boilerplate
 
+> **Purpose:** Starter CLI — arg parsing, `--help`, leveled logging, exit codes. · **Lang:** TS + Python · **Deps:** none (`tsx` dev-only)
+> **Copy to:** your project. · **Use when:** standing up a new Node or Python command-line script.
+
 A starting point for a command-line script, in both **Node (TypeScript)** and
 **Python**. Copy the file in your language of choice, rename the demo `greet`
 command, and you have a CLI with argument parsing, `--help`, `--version`, leveled

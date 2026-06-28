@@ -1,5 +1,8 @@
 # Claude Code security settings
 
+> **Purpose:** Security-focused Claude Code `settings.json` (protect secrets, block destructive shell).
+> **Copy to:** `~/.claude` or `<project>/.claude`. · **Use when:** setting up Claude Code with safe defaults. · **Related:** [keychain](../../scripts/keychain), [secret-guard](../../scripts/secret-guard)
+
 A **balanced** starting point for `settings.json` — safe defaults you copy in and
 then tune, rather than a lock-everything-down posture. Today this targets Claude
 Code; the same secret-protection mindset carries over if you add an IDE assistant
