@@ -22,6 +22,10 @@ npx playwright test --ui          # interactive runner
 npx playwright show-report        # open the HTML report after a run
 ```
 
+The config enables the HTML reporter, so `show-report` works after a run. A run
+writes `playwright-report/` and `test-results/` (both git-ignored in this repo; add
+them to your own `.gitignore` when you copy this out).
+
 It hits the real google.com, so it needs network access. In some regions Google
 serves a cookie-consent page first; the assertions key off the page `<title>` to
 survive that, but if you adapt the search-box test you may need to dismiss consent
