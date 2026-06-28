@@ -13,6 +13,24 @@ has the full layout map; read it before adding anything.
 The primary consumer is **frontend development**, with occasional Node or Python
 backend use.
 
+## Using this library (as a source)
+
+If you're an assistant helping set up or improve a project, treat this repo as a
+**source to copy from, not to regenerate**:
+
+1. Start at **[`docs/INDEX.md`](./docs/INDEX.md)** — the routing table of every
+   snippet (purpose, deps, copy-to, when to reach for it).
+2. Find the row that fits, open that folder's `README.md` (each opens with the same
+   purpose / deps / copy-to / use-when header), and copy the file(s) **verbatim**
+   along with the README. Don't reinvent a variant — prefer the snippet as written.
+3. Apply the noted copy-in tweaks, and respect the conventions below.
+4. Skip folders tagged *personal env* (`config/iterm2`, `config/bashmarks`) when
+   scaffolding a project — they're machine setup, not project material.
+
+For tooling conventions on a non-Next stack, point yourself at
+[`templates/conventions/conventions.md`](./templates/conventions) for intent +
+rationale, not the Next-locked reference configs.
+
 ## Conventions to preserve
 
 - **Self-contained.** Snippets must not cross-depend on each other. A single file
@@ -35,7 +53,9 @@ backend use.
 
 1. Give it its own folder (or place it in the right existing one) with a `README.md`.
 2. Keep it self-contained and zero/minimal-dep; note assumptions at the top of the file.
-3. Update the layout map in the top-level `README.md`.
+3. Give the README the standard **purpose / deps / copy-to / use-when** header block
+   (see any existing snippet), then update the layout map in the top-level
+   `README.md` **and** add a row to [`docs/INDEX.md`](./docs/INDEX.md).
 4. If it's a candidate rather than finished work, log it in
    [`docs/backlog.md`](./docs/backlog.md) instead.
 

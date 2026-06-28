@@ -22,6 +22,19 @@ per-folder `README.md` (see [`../CLAUDE.md`](../CLAUDE.md)).
   provider-agnostic (an API/response cache, not AI-specific). Future consideration:
   a "beyond AI calls" README note, or a rename to a general response cache, so its
   use for paid / rate-limited APIs is discoverable. No change for now.
+- **`.editorconfig`** — baseline cross-editor whitespace/charset rules; a near-
+  universal new-repo file.
+- **`.gitignore` starter** — sensible Node/TS frontend defaults, plus the env/secret
+  and tool-artifact patterns this repo already uses.
+- **Conventional commits / commitlint** — config + a hook. Referenced in
+  [`toolchain.md`](./toolchain.md) but no copyable snippet yet.
+- **Env-var validation** — a fail-fast startup check for missing/invalid env vars
+  (zero-dep, or zod/envalid), for Node/Python backends. Complements
+  [`keychain`](../scripts/keychain).
+- **devcontainer / Dockerfile starter** — a reproducible dev environment for the
+  occasional containerized project.
+- **TS-tips agent skill** — promote the TODO in [`references.md`](./references.md):
+  package the TypeScript tips as a reviewable Claude Code skill.
 
 *Shipped so far: CLI boilerplate, secret-guard, kill-port, node-version, http-fetch,
 a11y-check, playwright, the `wt` post-create hook, and CI starters — see the layout
