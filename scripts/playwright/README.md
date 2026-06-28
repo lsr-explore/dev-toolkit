@@ -1,13 +1,15 @@
 # Playwright example
 
 A minimal end-to-end Playwright test that points at the live **google.com** — a
-copy-paste starting point for a browser test. One spec, one tiny config.
+smoke test plus an axe-core accessibility scan. A copy-paste starting point for a
+browser test: one spec, one tiny config.
 
-> **Dependency:** [`@playwright/test`][pw] — a real dev dependency, unlike most
-> snippets here. Install it and the browser binaries before running:
+> **Dependencies:** [`@playwright/test`][pw] and [`@axe-core/playwright`][axe] —
+> real dev dependencies, unlike most snippets here. Install them and the browser
+> binaries before running:
 >
 > ```bash
-> npm i -D @playwright/test        # or: pnpm add -D @playwright/test
+> npm i -D @playwright/test @axe-core/playwright   # or: pnpm add -D …
 > npx playwright install chromium
 > ```
 
@@ -42,27 +44,23 @@ first (e.g. click the **Accept all** button before locating the field).
 - Prefer role-based locators (`getByRole`, `getByLabel`) over CSS selectors — they
   track what users and assistive tech actually perceive, and they break less.
 
-## Accessibility variant
+## The accessibility scan
 
-To turn this into an a11y check, add [`@axe-core/playwright`][axe] and scan a page
-inside a test. Against **your own app** you assert zero violations:
+The third test scans the page with axe-core via `AxeBuilder` and logs whatever it
+finds. Because google.com isn't a clean a11y target — it reports a few
+minor/moderate issues (`landmark-one-main`, `page-has-heading-one`, `region`,
+`aria-allowed-role`) — the example gates only on **serious/critical** violations so
+it stays green while still exercising the scan.
+
+Against **your own app**, drop the severity filter and assert zero outright:
 
 ```ts
-import AxeBuilder from "@axe-core/playwright";
-
-test("no detectable a11y violations", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
-  const results = await new AxeBuilder({ page }).analyze();
-  expect(results.violations).toEqual([]);
-});
+const { violations } = await new AxeBuilder({ page }).analyze();
+expect(violations).toEqual([]);
 ```
 
-Point that at a third-party page you don't control and the assertion will (rightly)
-fail — e.g. google.com reports a handful of real violations (`landmark-one-main`,
-`page-has-heading-one`, `region`, `aria-allowed-role`). That's a quick way to watch
-axe actually flag issues; `console.log(results.violations)` to inspect them. This is
-the per-route, in-suite setup the [`a11y-check`](../a11y-check) snippet points you
-toward once you outgrow a single-URL smoke check.
+This is the per-route, in-suite setup the [`a11y-check`](../a11y-check) snippet
+points you toward once you outgrow a single-URL smoke check.
 
 [pw]: https://playwright.dev
 [axe]: https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright
