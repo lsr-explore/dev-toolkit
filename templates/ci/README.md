@@ -36,9 +36,10 @@ Both are plain Markdown — copy them to the paths in the table above and GitHub
 picks them up automatically (no config). They're deliberately minimal; trim or
 extend the sections to fit.
 
-- **PR template** includes a short checklist with an accessibility prompt
-  (keyboard, focus, semantics, contrast) for UI changes — drop that line on a
-  backend-only repo.
+- **PR template** has what/why, a related-issue line (paste the full issue URL so
+  GitHub unfurls it to the issue title), a screenshots/video prompt for UI changes,
+  and a short checklist including an accessibility prompt (keyboard, focus,
+  semantics, contrast) — drop the a11y line on a backend-only repo.
 - **Issue template** is one combined bug/feature form. To offer a chooser instead,
   split it into `.github/ISSUE_TEMPLATE/bug_report.md` and `feature_request.md`
   (each keeps its own front matter), or add a `config.yml` there to set

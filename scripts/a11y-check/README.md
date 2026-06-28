@@ -54,6 +54,22 @@ Playwright/vitest-axe setup instead of growing this script.
 Exit code is **0** when clean, **non-zero** when axe finds violations (so it
 gates), and the script prints axe's findings plus a one-line summary.
 
+### Troubleshooting: ChromeDriver / Chrome version mismatch
+
+If axe aborts with `session not created: This version of ChromeDriver only
+supports Chrome version N` (your Chrome auto-updated past the bundled driver),
+sync them or point axe at a matching driver:
+
+```bash
+npx browser-driver-manager install chrome     # install matching Chrome + driver
+# …or pass an explicit driver you control:
+npx @axe-core/cli <url> --chromedriver-path /path/to/chromedriver
+```
+
+The script exits non-zero here (it can't tell a tooling failure from a real
+violation), so a red result with this message is an environment issue, not an
+accessibility finding.
+
 ### Pre-push hook example
 
 ```sh
