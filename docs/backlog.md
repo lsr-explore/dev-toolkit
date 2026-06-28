@@ -14,6 +14,14 @@ per-folder `README.md` (see [`../CLAUDE.md`](../CLAUDE.md)).
   Lighthouse CI, Web Vitals, bundle analysis, flame-graph profiling) with quick
   copy-paste commands. Complements the size-limit / bundle notes in
   [`toolchain.md`](./toolchain.md).
+- **Rate limiter (token-bucket)** — pace outgoing API calls under a provider's
+  per-second/minute limit. Slots between [`ai-cache`](../scripts/ai-cache) (dedup
+  identical calls) and [`http-fetch`](../scripts/http-fetch) (429 backoff) to round
+  out cost / rate-limit handling.
+- **Generalize `ai-cache` (parked — leave as-is for now)** — it's already
+  provider-agnostic (an API/response cache, not AI-specific). Future consideration:
+  a "beyond AI calls" README note, or a rename to a general response cache, so its
+  use for paid / rate-limited APIs is discoverable. No change for now.
 
 *Shipped so far: CLI boilerplate, secret-guard, kill-port, node-version, http-fetch,
 a11y-check, playwright, the `wt` post-create hook, and CI starters — see the layout
