@@ -8,7 +8,7 @@
  *   import { getSecret } from './get-secret';
  *   const key = getSecret('ANTHROPIC_API_KEY');
  *
- * CLI:
+ * CLI (verification only — prints just the last 6 chars, not the full secret):
  *   npx tsx get-secret.ts ANTHROPIC_API_KEY [service]
  */
 import { execFileSync } from 'node:child_process';
@@ -54,7 +54,13 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     process.exit(2);
   }
   try {
-    process.stdout.write(getSecret(account, service));
+    const secret = getSecret(account, service);
+    // Verification only: print the last 6 characters so you can confirm the key
+    // was retrieved without spilling the whole secret to the terminal. Use the
+    // library API (getSecret) to obtain the real value in code.
+    const svc = service ?? DEFAULT_SERVICE;
+    const masked = secret.length > 6 ? `…${secret.slice(-6)}` : '(too short to mask)';
+    console.log(`✓ ${account} retrieved from '${svc}' (${masked})`);
   } catch (err) {
     console.error((err as Error).message);
     process.exit(1);

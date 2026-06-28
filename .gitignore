@@ -7,3 +7,6 @@ __pycache__/
 # Never commit secrets (AI cache writes to $AI_CACHE_DIR / tmp, outside the repo)
 .env
 .env.*
+# ...but .env.example templates are documentation, not secrets — keep them.
+!.env.example
+!*.env.example
