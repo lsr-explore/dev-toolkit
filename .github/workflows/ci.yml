@@ -1,0 +1,34 @@
+# CI for dev-toolkit.
+#
+# Adapted from templates/github/ci.yml: this repo is a snippet *library* (npm +
+# markdownlint), not a pnpm frontend app, so it runs the markdown lint rather than
+# lint/typecheck/test. Gives branch protection a real status check to require.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+# Cancel superseded runs on the same ref so PRs don't queue stale jobs.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint Markdown
+        run: npm run lint:md
