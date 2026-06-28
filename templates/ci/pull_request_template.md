@@ -11,16 +11,14 @@
      worth it for AI-assisted changes, which still need a real review. It augments
      human review; it doesn't replace it. -->
 
+<!-- `#123` links the issue and shows its title on hover. A closing keyword
+     (Closes / Fixes / Resolves) auto-closes it on merge. Use owner/repo#123 or the
+     full URL only when the issue lives in another repo. -->
+Resolves #123
+
 ## What & why
 
 <!-- What does this change, and why? -->
-
-## Related issue
-
-<!-- `#123` is enough — it links the issue and shows its title on hover. A closing
-     keyword (Closes / Fixes / Resolves) also auto-closes it when this merges. Use
-     owner/repo#123 or the full URL only when the issue lives in another repo. -->
-- Resolves #123
 
 ## Changes
 

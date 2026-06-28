@@ -36,8 +36,8 @@ Both are plain Markdown — copy them to the paths in the table above and GitHub
 picks them up automatically (no config). They're deliberately minimal; trim or
 extend the sections to fit.
 
-- **PR template** has what/why, a related-issue line (`Resolves #123` links and
-  auto-closes the issue), a screenshots/video prompt, and a short checklist
+- **PR template** opens with a related-issue line (`Resolves #123` links and
+  auto-closes the issue), then what/why, a screenshots/video prompt, and a checklist
   of conditional reminders — clean diff (no stray debug/files), performance,
   security, docs, and accessibility. It also carries two authoring tips: leave
   inline diff comments prefaced with "Note to reviewer:", and consider an AI review
