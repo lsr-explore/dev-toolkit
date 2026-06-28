@@ -1,9 +1,16 @@
-# CI starter (GitHub Actions)
+# GitHub starters — CI + repo templates
 
-A minimal `lint → typecheck → test` gate for a frontend project. One job, four
-checks, heavily commented. Copy-paste starting point — **not** a full pipeline.
+A minimal `lint → typecheck → test` gate for a frontend project, plus basic PR and
+issue templates. Heavily commented copy-paste starting points — **not** a full
+pipeline.
 
-## Use it
+| File | Copy to | What it is |
+| --- | --- | --- |
+| [`ci.yml`](./ci.yml) | `.github/workflows/ci.yml` | The lint/typecheck/test workflow |
+| [`pull_request_template.md`](./pull_request_template.md) | `.github/pull_request_template.md` | Auto-fills new PR descriptions |
+| [`issue_template.md`](./issue_template.md) | `.github/ISSUE_TEMPLATE/issue.md` | Default new-issue body |
+
+## Use the workflow
 
 1. Copy [`ci.yml`](./ci.yml) to `.github/workflows/ci.yml` in your repo.
 2. Make sure you have a `.nvmrc` (e.g. `echo "22" > .nvmrc`) and a
@@ -21,6 +28,20 @@ checks, heavily commented. Copy-paste starting point — **not** a full pipeline
 
 The `concurrency` block cancels superseded runs on the same branch/PR so stale
 jobs don't pile up — no change needed.
+
+## PR & issue templates
+
+Both are plain Markdown — copy them to the paths in the table above and GitHub
+picks them up automatically (no config). They're deliberately minimal; trim or
+extend the sections to fit.
+
+- **PR template** includes a short checklist with an accessibility prompt
+  (keyboard, focus, semantics, contrast) for UI changes — drop that line on a
+  backend-only repo.
+- **Issue template** is one combined bug/feature form. To offer a chooser instead,
+  split it into `.github/ISSUE_TEMPLATE/bug_report.md` and `feature_request.md`
+  (each keeps its own front matter), or add a `config.yml` there to set
+  `blank_issues_enabled` and contact links.
 
 ## How this differs from a heavier pipeline
 
