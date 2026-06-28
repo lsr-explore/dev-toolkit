@@ -17,10 +17,10 @@
 
 ## Related issue
 
-<!-- Paste the FULL issue URL (e.g. https://github.com/OWNER/REPO/issues/42), not
-     just #42 — GitHub unfurls a full URL to show the issue's title inline. Use a
-     closing keyword (Closes / Fixes / Resolves) to auto-close it when this merges. -->
-- Resolves https://github.com/OWNER/REPO/issues/
+<!-- `#123` is enough — it links the issue and shows its title on hover. A closing
+     keyword (Closes / Fixes / Resolves) also auto-closes it when this merges. Use
+     owner/repo#123 or the full URL only when the issue lives in another repo. -->
+- Resolves #123
 
 ## Changes
 
