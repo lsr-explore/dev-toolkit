@@ -42,10 +42,13 @@ extend the sections to fit.
   security, docs, and accessibility. It also carries two authoring tips: leave
   inline diff comments prefaced with "Note to reviewer:", and consider an AI review
   pass before requesting human review.
-- **Issue template** is one combined bug/feature form. To offer a chooser instead,
-  split it into `.github/ISSUE_TEMPLATE/bug_report.md` and `feature_request.md`
-  (each keeps its own front matter), or add a `config.yml` there to set
-  `blank_issues_enabled` and contact links.
+- **Issue template** is one combined bug/feature form: the bug side prompts for
+  expected-vs-actual, repro steps, variations / error cases, sample data,
+  screenshots, and environment; the feature side prompts for motivation, demo
+  steps, sample data, and mockups. To offer a chooser instead, split it into
+  `.github/ISSUE_TEMPLATE/bug_report.md` and `feature_request.md` (each keeps its
+  own front matter), or add a `config.yml` there to set `blank_issues_enabled` and
+  contact links.
 
 ## Dependabot
 
