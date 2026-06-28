@@ -1,4 +1,4 @@
-# lsr-dev-tools
+# dev-toolkit
 
 A personal **snippet library** — not a project template. Nothing here is meant to
 be cloned as a starting point. Instead, each folder holds a small, self-contained
@@ -24,6 +24,7 @@ templates/
   conventions/  Tooling conventions + per-repo verify checklist + reference configs
 docs/
   toolchain.md  Inventory of the tools used in the next-template repo
+  references.md External resources: agent skills, package hygiene, TS reference
 ```
 
 ## How to use
@@ -34,6 +35,6 @@ file.
 
 ## Conventions baked in
 
-- **Keychain**: a single flat keyring, service `lsr-dev-keys`, one account per key.
+- **Keychain**: a single flat keyring, service `dev-keys`, one account per key.
 - **Editor/format**: Biome over Prettier; Vim keybindings in VSCode.
 - **Terminal**: iTerm2 + zsh, with `bashmarks` for folder jumps and `wt` for worktrees.

@@ -2,7 +2,7 @@
  * get-secret.ts — read a secret from the macOS Keychain via the `security` CLI.
  *
  * Zero dependencies: shells out to `security` (macOS only). Convention is a single
- * flat keyring — service `lsr-dev-keys`, one account per key name.
+ * flat keyring — service `dev-keys`, one account per key name.
  *
  * Library:
  *   import { getSecret } from './get-secret';
@@ -13,12 +13,12 @@
  */
 import { execFileSync } from 'node:child_process';
 
-const DEFAULT_SERVICE = 'lsr-dev-keys';
+const DEFAULT_SERVICE = 'dev-keys';
 
 /**
  * Return the secret stored under (service, account), or throw if it is not found.
  * @param account  the key name, e.g. 'ANTHROPIC_API_KEY'
- * @param service  the keyring service; defaults to 'lsr-dev-keys'
+ * @param service  the keyring service; defaults to 'dev-keys'
  */
 export function getSecret(account: string, service: string = DEFAULT_SERVICE): string {
   try {

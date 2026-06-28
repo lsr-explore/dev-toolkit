@@ -9,7 +9,7 @@ folder** and let it export/import there.
 **Settings → General → Settings**:
 
 1. Check **Load settings from a custom folder or URL**.
-2. Point it at a folder you control (e.g. `~/dev/lsr-dev-tools/config/iterm2/prefs`
+2. Point it at a folder you control (e.g. `~/dev/dev-toolkit/config/iterm2/prefs`
    or a Dropbox/iCloud path).
 3. Set **Save changes** to *Automatically*.
 

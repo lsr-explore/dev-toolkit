@@ -40,7 +40,7 @@ project roots*. Save your common roots once:
 
 ```bash
 cd ~/dev/next-template/main/next-template && s nt
-cd ~/dev/lsr-dev-tools/main/lsr-dev-tools  && s tools
+cd ~/dev/dev-toolkit/main/dev-toolkit      && s tools
 # later, from anywhere:
 g nt
 ```
