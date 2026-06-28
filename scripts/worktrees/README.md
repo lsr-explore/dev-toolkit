@@ -1,5 +1,8 @@
 # `wt` — git worktree helper
 
+> **Purpose:** git-worktree helper (new/open/ls/rm) that opens in iTerm2/VSCode. · **Lang:** zsh · **Deps:** git (`osascript`/`code` optional)
+> **Copy to:** `~/.local/bin`. · **Use when:** you run parallel branches as worktrees on macOS with terminal integration. · **Related:** [iterm2](../../config/iterm2)
+
 A lightweight zsh helper for git worktrees. Worktrees are placed at
 `<base>/<branch>/<repo-name>`, where `<base>` defaults to the grouping directory
 two levels above the repo (so it matches a `main/<repo>` layout). It can also open
@@ -7,8 +10,9 @@ the new worktree straight into an iTerm2 tab running `claude`, or a VSCode windo
 
 ## Commands
 
-```
-wt new <branch> [-c] [-e] [--base DIR]   create or check out a worktree
+```text
+wt new <branch> [-c] [-e] [--base DIR] [--link-env] [--setup CMD]
+                                         create or check out a worktree
 wt open <branch> [-c] [-e]               open an existing worktree
 wt ls                                    list worktrees
 wt rm <branch> [-f] [--rm-branch]        remove a worktree (and optionally the branch)
@@ -19,6 +23,8 @@ wt help
 -f / --force    force-remove a worktree with uncommitted changes
 --rm-branch     also delete the local branch after removal
 --base DIR      base directory to place the worktree under (or set $WT_BASE)
+--link-env      symlink the main worktree's root .env into the new worktree
+--setup CMD     run CMD inside the new worktree after creating it (e.g. 'pnpm install')
 ```
 
 ## Install
@@ -47,3 +53,11 @@ To open worktrees in VSCode (`-e`), install the `code` CLI: in VSCode run
 - `--base` / `$WT_BASE` override where worktrees land if your layout differs.
 - `wt rm` prunes the now-empty `<branch>/` parent directories left behind by the
   nesting scheme (capped, and `rmdir`-only so it can never touch a non-empty dir).
+- `--link-env` *symlinks* the main worktree's root `.env` rather than copying it,
+  so secrets/config live in one place and aren't duplicated to disk across worktrees
+  (in the spirit of keeping secrets out of extra files — pair it with a keychain
+  workflow for the values themselves). It skips silently when there's no `.env` and
+  never overwrites an existing one in the new worktree.
+- `--setup CMD` runs `CMD` inside the new worktree after creation — handy for
+  `--setup 'pnpm install'` or any per-worktree bootstrap. Both flags are opt-in;
+  plain `wt new <branch>` behaves exactly as before.

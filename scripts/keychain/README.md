@@ -1,5 +1,8 @@
 # Keychain secrets
 
+> **Purpose:** Read API keys from the macOS Keychain at runtime instead of `.env`. · **Lang:** TS + Python · **Deps:** none (macOS `security` CLI)
+> **Copy to:** your project — keep the filename + this README. · **Use when:** you want secrets off-disk on a dev machine; not Linux CI (inject via env there). · **Related:** [secret-guard](../secret-guard), [claude-code settings](../../config/claude-code)
+
 Store API keys in the macOS Keychain instead of `.env` files, and read them at
 runtime with the helper in your language of choice. Both helpers shell out to the
 built-in `security` CLI, so there is **zero runtime dependency** to install.
@@ -67,6 +70,14 @@ npx tsx get-secret.ts ANTHROPIC_API_KEY
 The point of pulling secrets from the Keychain is to keep them out of `.env`
 files and off disk. A few patterns below preserve that guarantee — it is easy to
 quietly undo it.
+
+### Copy the file as-is, alongside its README
+
+Keep the same file name when you copy the helper into a new project — rename only
+on a genuine collision — and keep it as a standalone file rather than folding it
+into an existing module. That keeps it easy to spot and to re-sync from this
+library later. Copy this `README.md` over too, so the guidance below travels with
+the code. Once it's integrated you can of course adapt the code to the project.
 
 ### 1. Don't put the secret in the process environment
 

@@ -1,0 +1,58 @@
+# CI starter for a frontend project — minimal lint / typecheck / test gate.
+#
+# Copy this file to .github/workflows/ci.yml in your repo.
+# It is deliberately light: one job, four checks. For e2e / Storybook /
+# bundle-size / visual, see templates/conventions and docs/toolchain.md.
+#
+# Tweak points are flagged with "TWEAK" comments below.
+
+name: CI
+
+# Run on every push and on PRs. Trim `branches` if you only want certain ones.
+on:
+  push:
+  pull_request:
+
+# Cancel an in-progress run when a newer commit lands on the same ref, so PRs
+# don't queue up stale jobs. `group` keys on workflow + branch/PR ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Enable Corepack so the pnpm version pinned in package.json's
+      # "packageManager" field is the one that runs. TWEAK: drop this if you
+      # use npm or yarn (and swap the steps below).
+      - name: Enable Corepack
+        run: corepack enable
+
+      # Node version comes from .nvmrc so CI and local stay in lockstep.
+      # `cache: pnpm` caches the pnpm store keyed off the lockfile.
+      # TWEAK: change cache to 'npm' or 'yarn' if you swap package managers,
+      # or set node-version directly instead of node-version-file.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      # --frozen-lockfile fails if the lockfile is out of date — what you want
+      # in CI. TWEAK: `npm ci` or `yarn install --immutable` for other PMs.
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # TWEAK: match these to your package.json script names.
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test (with coverage)
+        run: pnpm test --coverage

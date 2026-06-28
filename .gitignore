@@ -4,6 +4,13 @@ __pycache__/
 *.pyc
 .DS_Store
 
+# Playwright run artifacts (from the scripts/playwright example)
+playwright-report/
+test-results/
+
+# Local Claude Code state + agent worktrees — never committed.
+.claude/
+
 # Never commit secrets (AI cache writes to $AI_CACHE_DIR / tmp, outside the repo)
 .env
 .env.*

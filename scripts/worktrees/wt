@@ -8,7 +8,8 @@
 # Override per-call with --base DIR, or globally with the WT_BASE env var.
 #
 # Commands:
-#   wt new <branch> [-c] [-e] [--base DIR]   create (or check out) a worktree
+#   wt new <branch> [-c] [-e] [--base DIR] [--link-env] [--setup CMD]
+#                                            create (or check out) a worktree
 #   wt open <branch> [-c] [-e]               open an existing worktree
 #   wt ls                                    list worktrees
 #   wt rm <branch> [-f] [--rm-branch]        remove a worktree
@@ -20,6 +21,8 @@
 #   -f / --force    force-remove even if the worktree has uncommitted changes
 #   --rm-branch     also delete the local branch after removing the worktree
 #   --base DIR      base directory to place the worktree under
+#   --link-env      symlink the main worktree's root .env into the new worktree
+#   --setup CMD     run CMD inside the new worktree after creating it
 self=$0
 emulate -L zsh
 setopt pipe_fail
@@ -67,19 +70,50 @@ open_code() {
   code -- "$1"
 }
 
+# Echo the path of the repo's main (primary) worktree — the first entry of
+# `git worktree list --porcelain`, which git always reports as the main checkout.
+main_worktree_path() {
+  local line
+  while IFS= read -r line; do
+    case $line in
+      "worktree "*) print -r -- "${line#worktree }"; return 0 ;;
+    esac
+  done < <(git worktree list --porcelain)
+  return 1
+}
+
+# Symlink the main worktree's root .env into the new worktree (no copy, so the
+# secrets aren't duplicated to disk). Skips silently if there's no .env, and
+# never clobbers an existing .env in the new worktree.
+link_env() {
+  local dest=$1 main
+  main=$(main_worktree_path) || { print -u2 "wt: could not locate main worktree; skipping --link-env"; return }
+  if [[ ! -e "$main/.env" ]]; then
+    print "wt: no .env in main worktree ($main); skipping --link-env"
+    return
+  fi
+  if [[ -e "$dest/.env" || -L "$dest/.env" ]]; then
+    print "wt: .env already exists in worktree; leaving it untouched"
+    return
+  fi
+  ln -s "$main/.env" "$dest/.env" && print "wt: linked .env -> $main/.env"
+}
+
 cmd_new() {
-  local branch="" base=$default_base want_claude=0 want_code=0
+  local branch="" base=$default_base want_claude=0 want_code=0 link_env=0 setup_cmd=""
   while (( $# )); do
     case $1 in
       -c|--claude) want_claude=1 ;;
       -e|--code)   want_code=1 ;;
       --base)      shift; [[ -n $1 ]] || die "--base requires a directory"; base=$1 ;;
+      --link-env)  link_env=1 ;;
+      --setup)     shift; [[ -n $1 ]] || die "--setup requires a command"; setup_cmd=$1 ;;
       -*)          die "unknown flag: $1" ;;
       *)           [[ -z $branch ]] && branch=$1 || die "unexpected argument: $1" ;;
     esac
     shift
   done
-  [[ -n $branch ]] || die "usage: wt new <branch> [-c] [-e] [--base DIR]"
+  [[ -n $branch ]] || die "usage: wt new <branch> [-c] [-e] [--base DIR] [--link-env] [--setup CMD]"
   git check-ref-format "refs/heads/$branch" || die "invalid branch name: $branch"
 
   local dest="$base/$branch/$repo_name"
@@ -96,6 +130,15 @@ cmd_new() {
   fi
 
   print "wt: created $dest  (branch: $branch)"
+
+  # Opt-in post-create setup. Both run only when their flag was passed; plain
+  # `wt new <branch>` is unchanged.
+  (( link_env )) && link_env "$dest"
+  if [[ -n $setup_cmd ]]; then
+    print "wt: running setup in $dest"
+    ( cd "$dest" && eval "$setup_cmd" ) || die "setup command failed: $setup_cmd"
+  fi
+
   (( want_code ))   && open_code "$dest"
   (( want_claude )) && open_iterm_claude "$dest"
   (( want_claude || want_code )) || print "wt: cd \"$dest\""
@@ -166,7 +209,8 @@ wt — lightweight git worktree helper
 Worktrees are placed at  <base>/<branch>/<repo-name>  (base defaults to the
 grouping dir two levels above the repo; override with --base or $WT_BASE).
 
-  wt new <branch> [-c] [-e] [--base DIR]   create or check out a worktree
+  wt new <branch> [-c] [-e] [--base DIR] [--link-env] [--setup CMD]
+                                           create or check out a worktree
   wt open <branch> [-c] [-e]               open an existing worktree
   wt ls                                    list worktrees
   wt rm <branch> [-f] [--rm-branch]        remove a worktree
@@ -176,6 +220,9 @@ grouping dir two levels above the repo; override with --base or $WT_BASE).
   -e / --code     open the worktree in a VSCode window
   -f / --force    force-remove a worktree with uncommitted changes
   --rm-branch     also delete the local branch after removal
+  --base DIR      base directory to place the worktree under
+  --link-env      symlink the main worktree's root .env into the new worktree
+  --setup CMD     run CMD inside the new worktree after creating it
 HELP
 }
 

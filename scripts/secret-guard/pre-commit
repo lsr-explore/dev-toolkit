@@ -1,0 +1,135 @@
+#!/bin/sh
+#
+# secret-guard — git pre-commit hook that blocks committing secrets.
+#
+# Dependencies: git + grep + awk (POSIX sh, `grep -E`). Nothing to install.
+# macOS (BSD tools) and Linux (GNU tools) compatible.
+#
+# Companion to scripts/keychain: keychain keeps secrets OUT of the repo at the
+# source; this stops them leaking IN at commit time. Belt and suspenders.
+#
+# Two checks run against the STAGED changes only:
+#   1. Filenames  — reject .env and common variants.
+#   2. Content    — scan the staged diff for secret-shaped patterns.
+#
+# On any match this prints the offending file/line and the rule that tripped,
+# then exits non-zero to abort the commit. Bypass intentionally with:
+#   git commit --no-verify
+#
+# Tune the ALLOW_ENV / pattern list below if you hit a false positive.
+
+set -u
+
+# --- config ----------------------------------------------------------------
+
+# Paths you intentionally want to allow through the FILENAME check
+# (space-separated, exact match on the path as git reports it).
+# Example: ALLOW_ENV="config/.env.defaults"
+# For a one-off, skip the whole hook with: git commit --no-verify
+ALLOW_ENV=""
+
+# Findings accumulate here; we print them all at the end and clean up on exit.
+findings="$(mktemp "${TMPDIR:-/tmp}/secret-guard.XXXXXX")"
+trap 'rm -f "$findings"' EXIT INT TERM
+
+note() {
+	# note <file> <rule> [line]
+	if [ -n "${3:-}" ]; then
+		printf '  %s:%s  %s\n' "$1" "$3" "$2" >>"$findings"
+	else
+		printf '  %s  %s\n' "$1" "$2" >>"$findings"
+	fi
+}
+
+# --- 1. blocked filenames ---------------------------------------------------
+#
+# Matches: .env  .env.local  .env.production.local  .env.anything
+# Allows:  .env.example / .env.sample / .env.template (docs, no real values)
+
+is_allowed() {
+	for a in $ALLOW_ENV; do
+		[ "$1" = "$a" ] && return 0
+	done
+	return 1
+}
+
+# Files newly added or modified in this commit.
+staged_files="$(git diff --cached --name-only --diff-filter=ACM)"
+
+IFS='
+'
+for f in $staged_files; do
+	base="${f##*/}"
+	case "$base" in
+		.env.example | .env.sample | .env.template)
+			: # documentation, never holds real values — fine to commit
+			;;
+		.env | .env.*)
+			is_allowed "$f" && continue
+			note "$f" "blocked filename: env file ($base) should not be committed"
+			;;
+	esac
+done
+unset IFS
+
+# --- 2. secret patterns in the staged diff ----------------------------------
+#
+# Each rule is "label<TAB>extended-regex". We only scan ADDED lines (the '+'
+# side of the diff) and attribute each match to its file and new-file line.
+
+# A "real-looking value" for the generic assignment rules: >=12 contiguous
+# non-space, non-quote characters after the separator. Catches
+# XXX_API_KEY=abcd1234... and quoted passwords with punctuation; ignores the
+# empty XXX_API_KEY= (and XXX_API_KEY="") you'd leave in a template.
+val='[^[:space:]"'\'']{12,}'
+
+rules="\
+private key header	-----BEGIN [A-Z ]*PRIVATE KEY-----
+AWS access key id	AKIA[0-9A-Z]{16}
+Anthropic API key	sk-ant-[A-Za-z0-9_-]{8,}
+OpenAI-style secret key	sk-[A-Za-z0-9]{20,}
+GitHub personal access token	(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{20,}
+GitHub fine-grained PAT	github_pat_[A-Za-z0-9_]{20,}
+Slack token	xox[baprs]-[A-Za-z0-9-]{8,}
+generic API key assignment	[A-Za-z0-9_]*API_KEY[\"' ]*[:=][ \"']*$val
+generic secret assignment	[A-Za-z0-9_]*SECRET[\"' ]*[:=][ \"']*$val
+generic token assignment	[A-Za-z0-9_]*TOKEN[\"' ]*[:=][ \"']*$val"
+
+# Emit "file:line:content" for every added line in the staged diff, reading the
+# @@ hunk headers to track the new-file line number. One awk pass, no per-line
+# forks; portable between BSD and GNU awk.
+added="$(git diff --cached --unified=0 --no-color --diff-filter=ACM | awk '
+	/^\+\+\+ /  { file = substr($0, 5); sub(/^b\//, "", file); sub(/\t.*/, "", file); next }
+	/^@@ /      { n = $3; sub(/^\+/, "", n); sub(/,.*/, "", n); ln = n + 0; next }
+	/^\+/       { print file ":" ln ":" substr($0, 2); ln++; next }
+')"
+
+if [ -n "$added" ]; then
+	# For each rule, list every matching added line as file:line.
+	echo "$rules" | while IFS='	' read -r label regex; do
+		[ -z "$label" ] && continue
+		printf '%s\n' "$added" | grep -E -- "$regex" | while IFS=':' read -r mfile mline _rest; do
+			note "$mfile" "secret pattern: $label" "$mline"
+		done
+	done
+fi
+
+# --- verdict ----------------------------------------------------------------
+
+if [ -s "$findings" ]; then
+	red=""; yellow=""; reset=""
+	if [ -t 2 ]; then
+		red="$(printf '\033[31m')"; yellow="$(printf '\033[33m')"; reset="$(printf '\033[0m')"
+	fi
+	printf '%ssecret-guard blocked this commit:%s\n' "$red" "$reset" >&2
+	# Sort/uniq so a line tripping two rules isn't noisily duplicated.
+	sort -u "$findings" | while IFS= read -r line; do
+		printf '%s%s%s\n' "$yellow" "$line" "$reset" >&2
+	done
+	printf '\nRemove the secret (and rotate it if it was real). If this is a false\n' >&2
+	printf 'positive, bypass with:  %sgit commit --no-verify%s\n' "$yellow" "$reset" >&2
+	printf '(Then consider adding the path to ALLOW_ENV or tuning the rules.)\n' >&2
+	exit 1
+fi
+
+exit 0

@@ -1,5 +1,8 @@
 # AI response cache
 
+> **Purpose:** Disk-backed response cache keyed on a request hash — don't re-pay for identical calls. · **Lang:** TS + Python · **Deps:** none
+> **Copy to:** your project. · **Use when:** iterating on AI/API calls and deduping identical requests; not for mutations or secrets. · **Related:** [http-fetch](../http-fetch)
+
 A tiny **disk-backed cache** for AI API calls. While you iterate on UI, you tend to
 re-issue the *same* prompts over and over — each one costs tokens. Wrap the call in
 `cached(...)` and an identical request returns instantly from disk, for free, until

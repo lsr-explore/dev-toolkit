@@ -31,11 +31,11 @@ sentence; expand them under "Alternatives considered" below.
 
 ## Alternatives considered
 
-### <Option A> (rejected)
+### Alternative 1 — <option> (rejected)
 
 - <why it lost — the specific tradeoff, not a vague "didn't fit">
 
-### <Option B> (rejected)
+### Alternative 2 — <option> (rejected)
 
 - <why it lost>
 

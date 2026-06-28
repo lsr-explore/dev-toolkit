@@ -1,5 +1,8 @@
 # VSCode
 
+> **Purpose:** VSCode settings + extensions (incl. Vim).
+> **Copy to:** `<project>/.vscode` or user. · **Use when:** standardizing the editor for a repo. · **Related:** [biome](../biome)
+
 Drop these into a project's `.vscode/` folder (merge with anything already there).
 
 - **`settings.json`** — Biome as the default formatter + format-on-save, plus a Vim

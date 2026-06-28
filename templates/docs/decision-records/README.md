@@ -34,7 +34,7 @@ Copy [`0000-template.md`](./0000-template.md) and fill it in. The sections:
 
 ## Status lifecycle
 
-```
+```text
 Proposed ──▶ Accepted ──▶ Superseded
                  │
                  └── (stays Accepted indefinitely if never replaced)
