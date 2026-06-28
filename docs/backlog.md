@@ -6,13 +6,18 @@ per-folder `README.md` (see [`../CLAUDE.md`](../CLAUDE.md)).
 
 ## Queued
 
-*Nothing queued — the first batch shipped (CLI boilerplate, secret-guard,
-kill-port, node-version, http-fetch, a11y-check, the `wt` post-create hook, and CI
-starters). See the layout map in the top-level [`README.md`](../README.md) for
-what's there now.*
+- **Recommended Chrome extensions** — an opinionated, copy-paste list of browser
+  extensions worth installing (a11y: axe DevTools, WAVE; perf: Lighthouse, React
+  DevTools; etc.) with one line on why each. Pairs with the `a11y-check` and
+  `playwright` snippets.
+- **Performance tools** — a reference for front-end performance tooling (Lighthouse /
+  Lighthouse CI, Web Vitals, bundle analysis, flame-graph profiling) with quick
+  copy-paste commands. Complements the size-limit / bundle notes in
+  [`toolchain.md`](./toolchain.md).
 
-Add new ideas here as they come up — a one-line description and why it earns its
-place in the library.
+*Shipped so far: CLI boilerplate, secret-guard, kill-port, node-version, http-fetch,
+a11y-check, playwright, the `wt` post-create hook, and CI starters — see the layout
+map in the top-level [`README.md`](../README.md).*
 
 ---
 

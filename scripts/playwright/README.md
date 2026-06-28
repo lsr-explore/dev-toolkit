@@ -5,21 +5,22 @@ smoke test plus two axe-core accessibility scans (one strict, one severity-gated
 A copy-paste starting point for a browser test: one spec, one tiny config.
 
 > **Dependencies:** [`@playwright/test`][pw] and [`@axe-core/playwright`][axe] —
-> real dev dependencies, unlike most snippets here. Install them and the browser
-> binaries before running:
+> real dev dependencies, unlike most snippets here. This snippet ships a
+> `package.json` + `package-lock.json`, so install from the lockfile and add the
+> browser binary:
 >
 > ```bash
-> npm i -D @playwright/test @axe-core/playwright   # or: pnpm add -D …
-> npx playwright install chromium
+> npm install                       # installs the pinned dev deps
+> npx playwright install chromium   # one-time Chromium download
 > ```
 
 ## Run it
 
 ```bash
-npx playwright test               # headless
-npx playwright test --headed      # watch it drive a real browser
-npx playwright test --ui          # interactive runner
-npx playwright show-report        # open the HTML report after a run
+npm test              # headless         (playwright test)
+npm run test:headed   # watch a real browser
+npm run test:ui       # interactive runner
+npm run report        # open the HTML report after a run
 ```
 
 The config enables the HTML reporter, so `show-report` works after a run. A run
