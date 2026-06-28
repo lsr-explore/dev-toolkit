@@ -44,21 +44,25 @@ first (e.g. click the **Accept all** button before locating the field).
 
 ## Accessibility variant
 
-To turn this into an a11y check, add [`@axe-core/playwright`][axe] and scan the
-page inside a test:
+To turn this into an a11y check, add [`@axe-core/playwright`][axe] and scan a page
+inside a test. Against **your own app** you assert zero violations:
 
 ```ts
 import AxeBuilder from "@axe-core/playwright";
 
 test("no detectable a11y violations", async ({ page }) => {
-  await page.goto("https://www.google.com/");
+  await page.goto("http://localhost:3000/");
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
 });
 ```
 
-That's the per-route, in-suite setup the [`a11y-check`](../a11y-check) snippet
-points you toward once you outgrow a single-URL smoke check.
+Point that at a third-party page you don't control and the assertion will (rightly)
+fail — e.g. google.com reports a handful of real violations (`landmark-one-main`,
+`page-has-heading-one`, `region`, `aria-allowed-role`). That's a quick way to watch
+axe actually flag issues; `console.log(results.violations)` to inspect them. This is
+the per-route, in-suite setup the [`a11y-check`](../a11y-check) snippet points you
+toward once you outgrow a single-URL smoke check.
 
 [pw]: https://playwright.dev
 [axe]: https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 // A minimal end-to-end smoke test against the live google.com. It needs network
 // access; in some regions Google serves a cookie-consent page first, so the
