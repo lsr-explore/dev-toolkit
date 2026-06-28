@@ -25,6 +25,7 @@ templates/
 docs/
   toolchain.md  Inventory of the tools used in the next-template repo
   references.md External resources: agent skills, package hygiene, TS reference
+  backlog.md    Candidate snippet ideas, not yet built
 ```
 
 ## How to use
@@ -38,3 +39,7 @@ file.
 - **Keychain**: a single flat keyring, service `dev-keys`, one account per key.
 - **Editor/format**: Biome over Prettier; Vim keybindings in VSCode.
 - **Terminal**: iTerm2 + zsh, with `bashmarks` for folder jumps and `wt` for worktrees.
+
+## License
+
+[MIT](./LICENSE). Snippets are meant to be copied and adapted freely.

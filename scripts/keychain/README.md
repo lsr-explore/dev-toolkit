@@ -68,6 +68,14 @@ The point of pulling secrets from the Keychain is to keep them out of `.env`
 files and off disk. A few patterns below preserve that guarantee — it is easy to
 quietly undo it.
 
+### Copy the file as-is, alongside its README
+
+Keep the same file name when you copy the helper into a new project — rename only
+on a genuine collision — and keep it as a standalone file rather than folding it
+into an existing module. That keeps it easy to spot and to re-sync from this
+library later. Copy this `README.md` over too, so the guidance below travels with
+the code. Once it's integrated you can of course adapt the code to the project.
+
 ### 1. Don't put the secret in the process environment
 
 Read the secret and hand it **directly** to the client that needs it. Do not
