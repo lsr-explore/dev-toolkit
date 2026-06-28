@@ -5,6 +5,12 @@
      the specific line(s) in the diff to give reviewers context — preface each with
      "Note to reviewer:" so it reads as author context, not part of the code. -->
 
+<!-- Tip: before requesting human review, consider an AI review pass over the diff
+     (your editor's assistant, GitHub Copilot, or `claude` /code-review). It's cheap
+     and catches obvious bugs, edge cases, and leftover debug — and is especially
+     worth it for AI-assisted changes, which still need a real review. It augments
+     human review; it doesn't replace it. -->
+
 ## What & why
 
 <!-- What does this change, and why? -->
@@ -31,5 +37,12 @@
 
 ## Checklist
 
+- Diff is clean — no leftover `console.log`/debug or commented-out code, and nothing
+  committed that shouldn't be (or missing that should). A fresh clone of the branch
+  surfaces both.
+- Performance — no obvious regressions on hot paths: bundle size, needless re-renders,
+  N+1 queries (if applicable)
+- Security — no secrets committed, inputs validated/escaped, authorization intact
+  (if applicable)
 - Updated docs / comments where behavior changed
-- Accessibility considered — keyboard, focus order, semantics, contrast (if UI changed)
+- Accessibility — keyboard, focus order, semantics, contrast (if UI changed)
