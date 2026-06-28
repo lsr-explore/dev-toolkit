@@ -1,23 +1,14 @@
----
-name: Bug or feature
-about: Report a problem or request a change
-title: ""
-labels: []
-assignees: []
----
+# Bug or feature
 
-<!-- Copy to .github/ISSUE_TEMPLATE/issue.md (front matter is used there). For a
-     single default template you can instead drop it at .github/ISSUE_TEMPLATE.md
-     and remove the front matter. Fill the section that matches and delete the other. -->
+<!-- Copy to .github/ISSUE_TEMPLATE.md to use as the repo's default issue body.
+     (For a multi-template chooser under .github/ISSUE_TEMPLATE/, add `name:` and
+     `about:` front matter back — GitHub needs them to list the template.) Fill the
+     section that matches and delete the other. Set labels, issue type, and
+     assignees from the GitHub sidebar when you open the issue. -->
 
 ## Summary
 
 <!-- One or two sentences: what's wrong, or what you want. -->
-
-## Type
-
-- [ ] Bug
-- [ ] Feature / enhancement
 
 ---
 

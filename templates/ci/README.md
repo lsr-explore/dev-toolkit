@@ -8,7 +8,7 @@ pipeline.
 | --- | --- | --- |
 | [`ci.yml`](./ci.yml) | `.github/workflows/ci.yml` | The lint/typecheck/test workflow |
 | [`pull_request_template.md`](./pull_request_template.md) | `.github/pull_request_template.md` | Auto-fills new PR descriptions |
-| [`issue_template.md`](./issue_template.md) | `.github/ISSUE_TEMPLATE/issue.md` | Default new-issue body |
+| [`issue_template.md`](./issue_template.md) | `.github/ISSUE_TEMPLATE.md` | Default new-issue body |
 | [`dependabot.yml`](./dependabot.yml) | `.github/dependabot.yml` | Automated dependency-update PRs |
 
 ## Use the workflow
@@ -42,13 +42,14 @@ extend the sections to fit.
   security, docs, and accessibility. It also carries two authoring tips: leave
   inline diff comments prefaced with "Note to reviewer:", and consider an AI review
   pass before requesting human review.
-- **Issue template** is one combined bug/feature form: the bug side prompts for
+- **Issue template** is one combined bug/feature form with no front matter — it
+  drops in at `.github/ISSUE_TEMPLATE.md` as the default issue body (set labels,
+  type, and assignees from the GitHub sidebar). The bug side prompts for
   expected-vs-actual, repro steps, variations / error cases, sample data,
   screenshots, and environment; the feature side prompts for motivation, demo
-  steps, sample data, and mockups. To offer a chooser instead, split it into
-  `.github/ISSUE_TEMPLATE/bug_report.md` and `feature_request.md` (each keeps its
-  own front matter), or add a `config.yml` there to set `blank_issues_enabled` and
-  contact links.
+  steps, sample data, and mockups. For a chooser instead, move it under
+  `.github/ISSUE_TEMPLATE/` and add `name:`/`about:` front matter (or split into
+  `bug_report.md` + `feature_request.md`).
 
 ## Dependabot
 
