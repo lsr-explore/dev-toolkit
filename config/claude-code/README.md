@@ -35,8 +35,54 @@ a given rule is **deny → ask → allow**.
 
 - Pattern syntax is `Tool(specifier)`, e.g. `Bash(pnpm*)`, `Read(./secrets/**)`.
 - Hitting prompts for a command you trust? Add it to `allow`.
+- **Piped/compound commands still prompt** even when the first command is allowed:
+  Claude splits on `&&`, `||`, `;`, `|`, `&`, and newlines, and **each subcommand
+  must match a rule on its own**. Allow the pieces you actually pipe to
+  (`Bash(head*)`, `Bash(grep*)`, `Bash(jq*)`), or run `/fewer-permission-prompts`
+  to have Claude scan your transcripts and propose the allowlist for you.
 - Want a tighter posture? Flip `defaultMode` to `"acceptEdits"`→`"plan"`/deny-by-
   default and grow the allowlist explicitly.
+
+## Working across git worktrees
+
+A session started in one worktree will prompt on every read into a sibling worktree.
+Grant the shared base path once via `additionalDirectories` (left empty in the
+template) so reads across all branch worktrees stop asking:
+
+```json
+"additionalDirectories": ["/Users/you/dev/<repo>"]
+```
+
+If your worktrees live at `<base>/<branch>/<repo>`, point it at `<base>`. This is
+**file access only** — to also load a `CLAUDE.md` or hooks from those dirs, launch
+with `--add-dir <path>` (or `/add-dir` mid-session) instead of the setting.
+
+## Away from keyboard: keep the Mac awake + get notified
+
+When you step away and rely on a "done" ping, keep the machine from sleeping mid-task:
+
+```bash
+# run in a spare terminal; releases automatically when Claude exits
+caffeinate -is -w $(pgrep -fn claude)
+```
+
+`-i` blocks idle sleep, `-s` blocks sleep on AC; the display can still sleep. For the
+ping itself, `/config` → enable the mobile push options (Claude Code v2.1.110+ and
+the mobile app). For a custom notifier, add a `Notification` hook to this file:
+
+```json
+"hooks": {
+  "Notification": [
+    { "matcher": "permission_prompt|agent_completed",
+      "hooks": [{ "type": "command",
+        "command": "osascript -e 'display notification \"Claude needs you\" with title \"Claude Code\"'" }] }
+  ]
+}
+```
+
+Left out of the template itself since it's personal convenience, not a security
+default. See [`docs/ai-collaboration.md`](../../docs/ai-collaboration.md) for the
+friction these solve.
 
 ## If you add an IDE assistant later
 

@@ -37,7 +37,9 @@ per-folder `README.md` (see [`../CLAUDE.md`](../CLAUDE.md)).
   package the TypeScript tips as a reviewable Claude Code skill.
 - **A11y doc** - create an a11y doc for teams to add to their projects as an accessibility overview.
 - **Perf docs** - create a perf doc for teams to add to their projects.
-- **AI collaboration** - create an ai collaboration doc that provides team a framework for how they collaborate with ai tools
+- **AI collaboration (team framework)** — generalize the personal
+  [`ai-collaboration.md`](./ai-collaboration.md) friction log into a team-facing
+  framework for collaborating with AI tools. The personal log is the raw material.
 - **Boilerplate READMEs** — copy-paste README templates (project root, service/package,
   component library) with the right sections: what/why, quickstart, run, architecture
   pointer. Pairs with the [`docs`](../templates/docs) doc-discipline scaffolding.

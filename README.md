@@ -32,10 +32,11 @@ templates/
   conventions/     Tooling conventions + per-repo verify checklist + reference configs
   github/          GitHub starters: minimal frontend CI + PR / issue templates + dependabot
 docs/
-  INDEX.md         Structured map of every snippet — start here (the AI entry point)
-  toolchain.md     Inventory of the tools used in the next-template repo
-  references.md    External resources: agent skills, package hygiene, TS reference
-  backlog.md       Candidate snippet ideas (the first batch has shipped)
+  INDEX.md            Structured map of every snippet — start here (the AI entry point)
+  toolchain.md        Inventory of the tools used in the next-template repo
+  references.md       External resources: agent skills, package hygiene, TS reference
+  ai-collaboration.md Personal log of Claude Code friction points + fixes
+  backlog.md          Candidate snippet ideas (the first batch has shipped)
 ```
 
 ## Project snippets vs your environment

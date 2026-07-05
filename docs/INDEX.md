@@ -49,5 +49,6 @@ Legend — **Deps:** `none` = language built-ins / stdlib only.
 
 - [toolchain.md](./toolchain.md) — tool inventory from the next-template repo.
 - [references.md](./references.md) — external resources (agent skills, package hygiene, TS).
+- [ai-collaboration.md](./ai-collaboration.md) — personal log of Claude Code friction points + fixes.
 - [backlog.md](./backlog.md) — candidate snippet ideas not yet built.
 - [INDEX.md](./INDEX.md) — this file.
