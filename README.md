@@ -21,6 +21,7 @@ scripts/
   playwright/      Minimal Playwright test (google.com) + axe-core a11y scan + config
 config/
   claude-code/     Security-focused Claude Code settings.json + notes
+  coderabbit/      Example .coderabbit.yaml for the CodeRabbit AI PR reviewer
   biome/           biome.json + "why Biome over Prettier"
   node-version/    Pin Node across a team: .nvmrc vs Volta vs Corepack + engines cheatsheet
   vscode/          VSCode settings + extensions (incl. Vim)

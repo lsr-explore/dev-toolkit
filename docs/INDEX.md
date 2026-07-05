@@ -30,6 +30,7 @@ Legend — **Deps:** `none` = language built-ins / stdlib only.
 | Snippet | Purpose | Copy to | Reach for it when |
 | --- | --- | --- | --- |
 | [claude-code](../config/claude-code) | Security-focused Claude Code `settings.json` (protect secrets, block destructive shell) | `~/.claude` or `<project>/.claude` | Setting up Claude Code with safe defaults. Pairs with [keychain](../scripts/keychain) + [secret-guard](../scripts/secret-guard). |
+| [coderabbit](../config/coderabbit) | Example `.coderabbit.yaml` for the CodeRabbit AI PR reviewer (tone, path rules, a11y/TS instructions) | project root | You want automated PR review with house rules checked in. Needs the CodeRabbit GitHub app — a tool config, not CI. |
 | [biome](../config/biome) | `biome.json` + "why Biome over Prettier" | project root | Format + lint for JS/TS/JSON. See [conventions](../templates/conventions). |
 | [node-version](../config/node-version) | Pin Node across a team: `.nvmrc` vs Volta vs Corepack + `engines` | project root | Pinning Node across dev + CI. The [github](../templates/github) CI reads `.nvmrc`. |
 | [vscode](../config/vscode) | VSCode settings + extensions (incl. Vim) | `<project>/.vscode` or user | Standardizing the editor for a repo. |

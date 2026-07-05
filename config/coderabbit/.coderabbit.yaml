@@ -1,0 +1,75 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# CodeRabbit — AI code review on pull requests.
+# Drop this at the repo root as `.coderabbit.yaml`. It overrides the dashboard
+# defaults for this repo. Full key reference: the schema URL above.
+
+language: "en-US"
+
+# Steer the reviewer's voice (max 250 chars).
+tone_instructions: "Be concise and specific. Call out accessibility and security issues explicitly. Skip praise and filler."
+
+reviews:
+  # "chill" = balanced · "assertive" = nitpickier · "quiet" = only substantive findings.
+  profile: "chill"
+
+  # Advisory only — don't let the bot's "request changes" block a merge.
+  request_changes_workflow: false
+
+  high_level_summary: true
+  review_status: true
+  collapse_walkthrough: true
+  poem: false
+
+  auto_review:
+    enabled: true
+    drafts: false            # skip draft PRs
+    base_branches:
+      - "main"
+    ignore_title_keywords:   # skip release/dependency-bump noise
+      - "chore(release)"
+      - "bump"
+
+  # Glob patterns: matching paths are reviewed; a leading "!" excludes.
+  # Keep generated / vendored / lockfiles out so review focuses on authored code.
+  path_filters:
+    - "!**/dist/**"
+    - "!**/build/**"
+    - "!**/.next/**"
+    - "!**/*.min.js"
+    - "!**/pnpm-lock.yaml"
+    - "!**/package-lock.json"
+
+  # Directory-scoped guidance: glob -> extra instructions for that path.
+  path_instructions:
+    - path: "**/*.{ts,tsx}"
+      instructions: >-
+        Enforce strict typing: flag `any` and unchecked non-null assertions.
+        Prefer early returns over deep nesting.
+    - path: "**/*.{tsx,jsx}"
+      instructions: >-
+        Check WCAG 2.2 AA accessibility: semantic elements over div/span,
+        alt text on images, labels tied to inputs, visible focus states,
+        and no keyboard traps.
+    - path: "**/*.test.{ts,tsx}"
+      instructions: >-
+        Verify tests assert observable behavior, not implementation details.
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  web_search:
+    enabled: true
+
+# CodeRabbit auto-runs a linter when it finds that tool's config in the repo.
+# Pin or disable the ones you care about; the full list of ~60 tool keys is in
+# the schema. Each entry takes `enabled` (and some take `config_file`/`level`).
+tools:
+  eslint:
+    enabled: true
+  markdownlint:
+    enabled: true
+  shellcheck:
+    enabled: true
+  # ruff:
+  #   enabled: true            # Python repos
