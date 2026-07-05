@@ -147,3 +147,9 @@ if an edit seems to vanish, ask Claude to re-apply rather than assuming it's the
   decisions to keep, not delegate — a good assistant lays out clean options and throws
   the choice back rather than pre-deciding. When it quietly picks one of those for you,
   that's the signal to pull the decision back.
+
+## Further reading
+
+Official and community best-practices guides — the principles/happy-path layer this
+friction log sits beneath — are collected under **Claude Code best practices** in
+[`references.md`](./references.md).
