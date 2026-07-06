@@ -1,0 +1,19 @@
+# Seed manifest for seed-local-files.sh — one path per line, relative to the repo root.
+#
+# Blank lines and lines whose first non-space character is '#' are ignored. A path that
+# resolves to a DIRECTORY in the source is rsync'd (merged, no delete); a FILE is copied.
+# Missing paths are skipped.
+#
+# List ONLY gitignored, local-only artifacts that a fresh clone / `git worktree add` does
+# NOT materialize. A directory entry copies EVERYTHING under it — keep branch WIP out of
+# listed dirs, or pass a narrower list with --manifest and preview with --dry-run.
+#
+# Replace the examples below with your project's paths. Do NOT list deps/caches
+# (node_modules, .venv, *_cache) — regenerate those instead.
+
+.env
+.claude/settings.local.json
+.claude/skills
+
+# apps/web/.env.local
+# data/fixtures

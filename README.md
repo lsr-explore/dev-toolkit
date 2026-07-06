@@ -12,6 +12,7 @@ out cleanly.
 scripts/
   keychain/        Retrieve API keys from the macOS Keychain (TS + Python) + security-CLI cheatsheet
   worktrees/       The `wt` git-worktree helper + install instructions
+  seed-local/      Seed a fresh worktree/clone with gitignored local files (.env, settings, skills, data) via a manifest
   ai-cache/        Disk-backed response cache to stop re-spending tokens during UI dev (Node + Python)
   cli-boilerplate/ Starter CLI in TS + Python: arg parsing, --help, leveled logging, exit codes
   http-fetch/      Zero-dep fetch wrapper: per-attempt timeout + retry/backoff + typed errors (TS + Python)
