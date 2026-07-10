@@ -8,18 +8,19 @@ instead of letting §1 go stale. Tune the command names (lint, usage, cost) to t
 
 The session log mixes **living state** (edit in place) with **immutable history**
 (append once). Treating the whole file as "append-only" is the usual mistake — it
-buries the current-state pointer and lets it go stale. The file has zones, in fixed
-order:
+buries the current-state pointer and lets it go stale. The file has four zones — §1–§3
+in fixed order at the top, then §4 at the end:
 
 | Zone | Mutability | Rule |
 | --- | --- | --- |
-| §1 ▶ Current state | **living** | **overwrite** every session; never dated as history |
+| §1 ▶ Current state | **living** | **overwrite** every session; human-readable snapshot; never dated as history |
 | §2 Delivery tracker | **living** | **append one row** per session |
 | §3 Session history | **append-only** | **prepend** one entry, newest on top; never edit past entries |
+| §4 Agent pickup notes | **living** | **overwrite** every session; dense shorthand for the next AI session; sits at the file's end |
 
 ## End-of-session checklist
 
-When a working session wraps (and the user hasn't said to skip it), do all three:
+When a working session wraps (and the user hasn't said to skip it), do all four:
 
 1. **Overwrite §1 (Current state)** so it reflects *now*: what's merged, what's in
    flight (branch + PR + CI), what to pick up next, plus the standing *Read-first /
@@ -31,6 +32,10 @@ When a working session wraps (and the user hasn't said to skip it), do all three
    user** for them at session end rather than guessing.
 3. **Prepend an entry to §3 (history)** using the template below. Write it once;
    later sessions never edit it.
+4. **Overwrite §4 (Agent pickup notes)** — the dense shorthand a fresh assistant
+   session reads to start cold: full inventory, the exact next step (with paths),
+   locked decisions (so they aren't relitigated), housekeeping gotchas. Like §1 this
+   is a replace, not an append; it sits at the file's end.
 
 ## Entry depth — tiered
 

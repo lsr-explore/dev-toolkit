@@ -5,11 +5,12 @@ reflection, not transcription.
 
 <!--
 This file mixes LIVING state (overwrite in place) with IMMUTABLE history (append once).
-Four zones, in fixed order:
+Four zones — §1–§3 in fixed order at the top, then §4 at the end:
 
   §1 Current state            — LIVING: overwrite every session; never dated as history
   §2 Delivery tracker         — LIVING: append one row per session
   §3 Session history          — APPEND-ONLY: prepend one entry, newest on top; never edit past entries
+  §4 Agent pickup notes       — LIVING: overwrite every session; dense shorthand for the next AI session
 
 If the repo uses Claude Code, the end-of-session checklist lives in
 .claude/rules/project-log.md (copy it from templates/docs/claude-rules/).
@@ -111,6 +112,21 @@ Same as lean, plus these two sections AFTER "What we accomplished" and BEFORE "H
 Do NOT put a per-session status table inside an entry — in-flight status lives in §1,
 cumulative status in §2. Each fact has exactly one home.
 -->
+
+---
+
+## §4 Agent pickup notes *(living — overwrite each session)*
+
+<!--
+Dense, high-context shorthand for a fresh assistant session to start cold — NOT prose for
+humans (that's §1). Overwrite it every session. Typical contents:
+- full inventory of what's merged / where the key pieces live
+- the exact next step to pick up, with file paths
+- locked decisions (so they aren't relitigated) — link the ADR / settled-decisions doc
+- housekeeping gotchas (tool quirks, setup prerequisites)
+-->
+
+- <dense shorthand — overwrite each session>
 
 <!--
 Formatting (so markdownlint stays quiet):
