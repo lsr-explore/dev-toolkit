@@ -1,11 +1,16 @@
 # Global packages
 
-Global npm CLIs worth having on a dev machine — installed once, run occasionally
-as a **sanity check** rather than wired into any project. Not snippets to copy;
-machine setup, like the *personal env* configs.
+Global npm CLIs worth having on a dev machine — installed once and reached for
+occasionally, rather than wired into any one project. Not snippets to copy;
+machine setup, like the *personal env* configs. Most run fine one-off via `npx`
+too, if you'd rather not install globally.
 
 ```bash
-npm i -g ccusage devlove devrage
+# usage insight, git + dependency maintenance, local servers, MCP bridge
+npm i -g ccusage git-trim npm-check-updates json-server http-server mcp-remote
+
+# novelty / vibe check
+npm i -g devlove devrage
 ```
 
 (`ccusage` also runs fine one-off without a global install: `npx ccusage@latest`.)
@@ -40,6 +45,72 @@ the documented behavior, not a `wt` quirk.
 `ccusage` sidesteps the fragmentation entirely: it aggregates across all those
 per-worktree project directories, so it's the tool that gives a single complete
 picture of usage when you've been working in parallel worktrees.
+
+## git-trim
+
+> `npm i -g git-trim` · installs a `git trim` subcommand
+
+Quickly removes local branches that are **merged, pruned, untracked, or stale** —
+the cleanup after a PR merges and the remote branch is deleted. Complements the
+squash-merge gotcha noted in [`ai-collaboration.md`](./ai-collaboration.md):
+`git branch --merged` under-reports after a squash, and `git trim` is one way to
+sweep the leftovers (verify what it targets before letting it delete).
+
+## npm-check-updates
+
+> `npm i -g npm-check-updates` · runs as `ncu`
+
+Finds dependency versions **newer than your `package.json` allows** and (with
+`ncu -u`) rewrites the ranges so a reinstall pulls them. The upgrade counterpart to
+[replacements.fyi](./references.md) (which finds *replacements* for dead packages).
+Run it, review the diff, then `pnpm install` — it doesn't install for you, and it
+will happily suggest majors, so read before applying.
+
+## json-server
+
+> `npm i -g json-server` · <https://github.com/typicode/json-server>
+
+Stands up a **full fake REST API from a single JSON file** in seconds — GET/POST/
+PUT/PATCH/DELETE with filtering, sorting, and pagination, no backend code. Handy
+for wiring up frontend data-fetching before the real API exists, or for a stable
+fixture in local dev.
+
+## http-server
+
+> `npm i -g http-server` · <https://github.com/http-party/http-server>
+
+A zero-config static file server for the current directory.
+
+**You probably don't need this globally.** For plain static serving the built-in
+equivalent already ships on macOS:
+
+```bash
+python3 -m http.server 8000      # serves ./ on :8000 — no install
+```
+
+(Node has no bundled one-liner; the on-demand equivalent is `npx serve` /
+`npx http-server`.) Reach for the `http-server` package only when you want what the
+Python one-liner doesn't give you: a Node-native server that matches a JS project's
+runtime, `--cors`, cache-control headers, a `-P` proxy for SPA history fallback, or
+`-S` HTTPS. Otherwise `python3 -m http.server` covers it.
+
+## mcp-remote
+
+> `npm i -g mcp-remote` · <https://github.com/geelen/mcp-remote>
+
+A proxy that lets **local-only MCP clients reach a remote MCP server** (over
+HTTP/SSE, with OAuth). MCP clients like Claude Desktop speak stdio to a local
+process; `mcp-remote` is the local process that bridges to a hosted server. You
+rarely invoke it by hand — it goes in an MCP client config as the command, e.g.:
+
+```jsonc
+// claude_desktop_config.json (or another MCP client's config)
+{ "mcpServers": {
+    "my-remote": { "command": "npx", "args": ["mcp-remote", "https://example.com/mcp"] }
+} }
+```
+
+Installing it globally just avoids the `npx` cold-start each launch.
 
 ## devlove
 

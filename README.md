@@ -22,7 +22,7 @@ scripts/
   a11y-check/      Standalone axe-core accessibility smoke check against a local URL
   playwright/      Minimal Playwright test (google.com) + axe-core a11y scan + config
 config/
-  claude-code/     Security-focused Claude Code settings.json + notes
+  claude-code/     Security-focused Claude Code settings.json + notes, and rules/ (.claude/rules/*.md drop-ins)
   coderabbit/      Example .coderabbit.yaml for the CodeRabbit AI PR reviewer
   biome/           biome.json + "why Biome over Prettier"
   node-version/    Pin Node across a team: .nvmrc vs Volta vs Corepack + engines cheatsheet
@@ -38,7 +38,8 @@ docs/
   toolchain.md        Inventory of the tools used in the next-template repo
   references.md       External resources: agent skills, package hygiene, TS reference
   ai-collaboration.md Personal log of Claude Code friction points + fixes
-  global-packages.md  Global npm CLIs installed occasionally as a sanity check (ccusage, devlove, devrage)
+  global-packages.md  Global npm CLIs reached for occasionally (ccusage, git-trim, ncu, json-server, http-server, mcp-remote, devlove/devrage)
+  mermaid.md          Mermaid diagram notes — placeholder (dark/light theming is the open problem)
   backlog.md          Candidate snippet ideas (the first batch has shipped)
 ```
 

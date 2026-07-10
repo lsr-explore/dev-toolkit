@@ -32,6 +32,7 @@ Legend — **Deps:** `none` = language built-ins / stdlib only.
 | Snippet | Purpose | Copy to | Reach for it when |
 | --- | --- | --- | --- |
 | [claude-code](../config/claude-code) | Security-focused Claude Code `settings.json` (protect secrets, block destructive shell) | `~/.claude` or `<project>/.claude` | Setting up Claude Code with safe defaults. Pairs with [keychain](../scripts/keychain) + [secret-guard](../scripts/secret-guard). |
+| [claude-code/rules](../config/claude-code/rules) | Drop-in `.claude/rules/*.md`: prompt-injection, coding standards, frontend, testing, workflow | `<project>/.claude/rules` | You want durable per-topic rules the assistant follows without restating them. Generic; `security.md` verbatim, rest adapt per stack. |
 | [coderabbit](../config/coderabbit) | Example `.coderabbit.yaml` for the CodeRabbit AI PR reviewer (tone, path rules, a11y/TS instructions) | project root | You want automated PR review with house rules checked in. Needs the CodeRabbit GitHub app — a tool config, not CI. |
 | [biome](../config/biome) | `biome.json` + "why Biome over Prettier" | project root | Format + lint for JS/TS/JSON. See [conventions](../templates/conventions). |
 | [node-version](../config/node-version) | Pin Node across a team: `.nvmrc` vs Volta vs Corepack + `engines` | project root | Pinning Node across dev + CI. The [github](../templates/github) CI reads `.nvmrc`. |
@@ -52,6 +53,7 @@ Legend — **Deps:** `none` = language built-ins / stdlib only.
 - [toolchain.md](./toolchain.md) — tool inventory from the next-template repo.
 - [references.md](./references.md) — external resources (agent skills, package hygiene, TS).
 - [ai-collaboration.md](./ai-collaboration.md) — personal log of Claude Code friction points + fixes.
-- [global-packages.md](./global-packages.md) — global npm CLIs installed occasionally as a sanity check (ccusage, devlove, devrage).
+- [global-packages.md](./global-packages.md) — global npm CLIs reached for occasionally (ccusage, git-trim, ncu, json-server, http-server, mcp-remote, devlove/devrage).
+- [mermaid.md](./mermaid.md) — working notes on Mermaid diagrams (+ the open dark/light theming problem). *(placeholder)*
 - [backlog.md](./backlog.md) — candidate snippet ideas not yet built.
 - [INDEX.md](./INDEX.md) — this file.

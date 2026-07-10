@@ -8,8 +8,11 @@ __pycache__/
 playwright-report/
 test-results/
 
-# Local Claude Code state + agent worktrees — never committed.
-.claude/
+# Local Claude Code state + agent worktrees — ignored, EXCEPT the shared
+# settings.json committed as safe defaults for anyone working in this repo.
+# (settings.local.json stays personal/ignored; put machine-specific paths there.)
+.claude/*
+!.claude/settings.json
 
 # Never commit secrets (AI cache writes to $AI_CACHE_DIR / tmp, outside the repo)
 .env
