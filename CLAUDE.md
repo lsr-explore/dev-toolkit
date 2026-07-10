@@ -18,8 +18,8 @@ backend use.
 If you're an assistant helping set up or improve a project, treat this repo as a
 **source to copy from, not to regenerate**:
 
-1. Start at **[`docs/INDEX.md`](./docs/INDEX.md)** — the routing table of every
-   snippet (purpose, deps, copy-to, when to reach for it).
+1. Start at the **routing table in [`README.md`](./README.md)** — every snippet's
+   purpose, deps, copy-to, and when to reach for it, up front.
 2. Find the row that fits, open that folder's `README.md` (each opens with the same
    purpose / deps / copy-to / use-when header), and copy the file(s) **verbatim**
    along with the README. Don't reinvent a variant — prefer the snippet as written.
@@ -54,8 +54,9 @@ rationale, not the Next-locked reference configs.
 1. Give it its own folder (or place it in the right existing one) with a `README.md`.
 2. Keep it self-contained and zero/minimal-dep; note assumptions at the top of the file.
 3. Give the README the standard **purpose / deps / copy-to / use-when** header block
-   (see any existing snippet), then update the layout map in the top-level
-   `README.md` **and** add a row to [`docs/INDEX.md`](./docs/INDEX.md).
+   (see any existing snippet), then add a row to the routing table in the top-level
+   [`README.md`](./README.md) (the single source — there's no separate index to keep
+   in sync).
 4. If it's a candidate rather than finished work, log it in
    [`docs/backlog.md`](./docs/backlog.md) instead.
 
