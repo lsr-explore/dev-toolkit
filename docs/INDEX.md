@@ -22,6 +22,7 @@ Legend — **Deps:** `none` = language built-ins / stdlib only.
 | [cli-boilerplate](../scripts/cli-boilerplate) | Starter CLI: arg parsing, `--help`, leveled logging, exit codes | TS + Py | none (`tsx` dev-only) | project | Standing up a new Node or Python command-line script. |
 | [http-fetch](../scripts/http-fetch) | fetch wrapper: per-attempt timeout + retry/backoff + typed errors | TS (Node 18+) + Py | none | project | A script/backend needs resilient HTTP without `axios`/`requests`. Pairs with [ai-cache](../scripts/ai-cache). |
 | [secret-guard](../scripts/secret-guard) | Pre-commit hook blocking `.env` + common secret patterns | POSIX sh | git + grep | `.git/hooks` or `core.hooksPath` | Stop secrets leaking into a commit. Pre-commit only — not a history scanner. Companion to [keychain](../scripts/keychain). |
+| [branch-guard](../scripts/branch-guard) | Local pre-commit + pre-push hooks that refuse commits/pushes to `main` | POSIX sh | git (Husky optional) | `.husky/` or `.githooks/` + `core.hooksPath` | You (or an AI session using your credentials) can bypass the remote ruleset, so only a local hook actually fires. Pairs with [secret-guard](../scripts/secret-guard). |
 | [kill-port](../scripts/kill-port) | Find and kill the process on a TCP port | POSIX sh | `lsof` + `kill` (macOS) | project / `bin` | A dev server is stuck on a port. Linux: use `fuser`/`ss`. |
 | [a11y-check](../scripts/a11y-check) | One-command axe-core accessibility smoke check of a URL | sh | `npx @axe-core/cli` + Chrome/driver | project | Quick a11y pass on a small site with no test setup. *Graduate to* [playwright](../scripts/playwright)/vitest-axe when you outgrow it. |
 | [playwright](../scripts/playwright) | Minimal Playwright e2e + axe-core a11y example (points at google.com) | TS | `@playwright/test`, `@axe-core/playwright` (ships `package.json`) | project | Starting browser/e2e tests. Shows strict + severity-gated a11y assertions. |
@@ -51,5 +52,6 @@ Legend — **Deps:** `none` = language built-ins / stdlib only.
 - [toolchain.md](./toolchain.md) — tool inventory from the next-template repo.
 - [references.md](./references.md) — external resources (agent skills, package hygiene, TS).
 - [ai-collaboration.md](./ai-collaboration.md) — personal log of Claude Code friction points + fixes.
+- [global-packages.md](./global-packages.md) — global npm CLIs installed occasionally as a sanity check (ccusage, devlove, devrage).
 - [backlog.md](./backlog.md) — candidate snippet ideas not yet built.
 - [INDEX.md](./INDEX.md) — this file.

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+# Refuse to commit directly on main. The remote ruleset allows a bypass for the repo owner
+# (and pushes use those credentials), so this local guard is the real protection against an
+# accidental commit landing on main. Override intentionally with: git commit --no-verify
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$branch" = "main" ]; then
+  echo "✋ Refusing to commit directly on main — create a branch first (git checkout -b …)." >&2
+  echo "   Override intentionally with: git commit --no-verify" >&2
+  exit 1
+fi

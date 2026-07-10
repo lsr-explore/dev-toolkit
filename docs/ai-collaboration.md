@@ -131,6 +131,47 @@ reading. Two guards, neither complete:
 The bias itself is a human-factors problem, not a settings one; the aim is to shrink
 the volume of prompts so the remaining ones get real attention.
 
+### A question buried in a summary doesn't ping you (remote-control + `/loop`)
+
+When you're away and leaning on remote notifications, a session that ends an
+iteration by *summarizing what it did and slipping a question into the prose*
+doesn't fire a notification. Pings are triggered by **action-required** events — a
+permission prompt or a structured choice (`AskUserQuestion`) — **not** by a question
+written as ordinary text. Seen a few times while running `/loop` over remote-control:
+the run effectively paused on an embedded question, but nothing pinged, so it just
+sat there.
+
+Handles, neither complete:
+
+- **Ping on every turn-end, not just formal prompts.** A `Stop` hook fires whenever
+  the main agent yields the turn — including when it stops on a prose question — so
+  you're notified regardless of how the question is phrased:
+
+  ```json
+  {
+    "hooks": {
+      "Stop": [
+        { "hooks": [{ "type": "command",
+          "command": "osascript -e 'display notification \"Claude stopped — may be waiting\" with title \"Claude Code\"'" }] }
+      ]
+    }
+  }
+  ```
+
+  Blunt: it also pings on a clean "done," trading precision for never missing a
+  question. Complements the `permission_prompt|agent_completed` `Notification` hook
+  above rather than replacing it.
+
+- **Make Claude ask structurally, not in prose.** Instruct it (global `CLAUDE.md`) to
+  surface anything that needs an answer as an `AskUserQuestion` prompt instead of a
+  line in a wrap-up — structured questions are action-required and do ping. The
+  existing "use AskUserQuestion for 3+ alternatives" rule doesn't cover the single
+  yes/no buried in a summary; widen it to *any* real question when working remote.
+
+**Still open:** the root cause is that a prose question isn't classified as "action
+required," so the model's own phrasing decides whether you get pinged. Neither handle
+makes an in-summary question reliably notify on its own.
+
 ### VSCode "open file" diff can drop changes
 
 When a file is open in VSCode, Claude sometimes surfaces the change as an editor diff;

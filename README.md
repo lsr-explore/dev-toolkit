@@ -17,6 +17,7 @@ scripts/
   cli-boilerplate/ Starter CLI in TS + Python: arg parsing, --help, leveled logging, exit codes
   http-fetch/      Zero-dep fetch wrapper: per-attempt timeout + retry/backoff + typed errors (TS + Python)
   secret-guard/    Pre-commit hook that blocks committing .env files + common secret patterns
+  branch-guard/    Local pre-commit + pre-push hooks that refuse commits/pushes to main
   kill-port/       Find and kill the process listening on a TCP port (macOS, lsof)
   a11y-check/      Standalone axe-core accessibility smoke check against a local URL
   playwright/      Minimal Playwright test (google.com) + axe-core a11y scan + config
@@ -37,6 +38,7 @@ docs/
   toolchain.md        Inventory of the tools used in the next-template repo
   references.md       External resources: agent skills, package hygiene, TS reference
   ai-collaboration.md Personal log of Claude Code friction points + fixes
+  global-packages.md  Global npm CLIs installed occasionally as a sanity check (ccusage, devlove, devrage)
   backlog.md          Candidate snippet ideas (the first batch has shipped)
 ```
 
