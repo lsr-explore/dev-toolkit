@@ -48,7 +48,8 @@ Proposed ──▶ Accepted ──▶ Superseded
 
 - Write the **Alternatives** honestly — an ADR whose alternatives all look obviously
   bad isn't recording a real decision. The value is the tradeoff you can't see later.
-- Cross-link the **project_log** session where the decision landed, so the narrative
-  ("how we got here") and the record ("what we chose") point at each other.
+- Cross-link the **session record** (`docs/metrics/sessions/…`) where the decision landed via
+  its `decisions` field, so the session ("when/how we got here") and the ADR ("what we chose
+  and why") point at each other.
 - Keep it current-state: an ADR documents one decision at one time; don't bolt
   "update: we later changed X" onto it — that's a new ADR.

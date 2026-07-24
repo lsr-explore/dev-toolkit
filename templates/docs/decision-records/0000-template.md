@@ -65,4 +65,4 @@ sentence; expand them under "Alternatives considered" below.
 
 ## Related
 
-- <links: other ADRs, the spec/plan section, the project_log entry for the session this landed in>
+- <links: other ADRs, the spec/plan section, the session record (docs/metrics/sessions/…) this landed in>

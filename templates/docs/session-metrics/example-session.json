@@ -1,0 +1,52 @@
+{
+  "date": "2026-01-09",
+  "label": "auth slice — login form + session cookie",
+  "cli_sessions": ["00000000-0000-0000-0000-000000000000"],
+  "parallel_agents": 1,
+  "confidence": "measured",
+  "themes": ["frontend", "backend"],
+  "cost_usd": 12.4,
+  "api_minutes": 41,
+  "wall_minutes": 95,
+  "context_over_150k_pct": 18,
+  "effort_split": {
+    "build": 55,
+    "setup": 5,
+    "design": 15,
+    "docs": 10,
+    "verify_ops": 5,
+    "churn": 10
+  },
+  "churn_attribution": {
+    "under_specified": 60,
+    "claude_error": 20,
+    "genuine_discovery": 20
+  },
+  "rework_of": [],
+  "delivered": {
+    "prs": 1,
+    "issues": 2,
+    "adrs": 1
+  },
+  "review": {
+    "fixed": 3,
+    "deferred": 1,
+    "declined": 1,
+    "ci_reruns": 0
+  },
+  "ratings": {
+    "scoping_clarity": 4,
+    "decision_stability": 5,
+    "tooling_leverage": 3
+  },
+  "decisions": [
+    "session stored in an httpOnly cookie, not localStorage (see ADR 0004)",
+    "deferred refresh-token rotation to a follow-up issue"
+  ],
+  "retro": {
+    "went_well": "Clear acceptance criteria on the issue meant the build path was unambiguous.",
+    "improve": "Cookie flags churned once because the prompt didn't state the SameSite requirement up front.",
+    "tooling_suggestion": "A snippet for the standard secure-cookie options would remove a recurring lookup."
+  },
+  "note": null
+}
