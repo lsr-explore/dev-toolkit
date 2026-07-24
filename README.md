@@ -50,7 +50,7 @@ Legend — **Deps:** `none` = language built-ins / stdlib only.
 
 | Snippet | Purpose | Copy to | Reach for it when |
 | --- | --- | --- | --- |
-| [docs](templates/docs) | Doc scaffolding: `project_log` + ADR templates with guides | `docs/` | Adopting documentation discipline in a repo. |
+| [docs](templates/docs) | Doc scaffolding: session-metrics records + `current-state` + `/wrap` skill + ADR templates | `docs/` (+ optional `.claude/`) | Adopting documentation discipline in a repo. |
 | [conventions](templates/conventions) | Opinionated JS/TS tooling conventions: checklist + rationale + reference configs | point an assistant at `conventions.md` | Standing up or auditing a repo's tooling. See [toolchain.md](docs/toolchain.md). |
 | [github](templates/github) | GitHub repo starters: CI workflow, PR + issue templates, dependabot | `.github/` | New-repo scaffolding. Uses [node-version](config/node-version). |
 

@@ -29,8 +29,9 @@ Alongside `settings.json`, this folder ships [`rules/`](./rules) — drop-in
 testing, workflow) that Claude Code loads as standing guidance on top of `CLAUDE.md`.
 Copy the ones a project needs into `<project>/.claude/rules/`; `security.md` is the
 copy-verbatim baseline, the rest adapt to your stack. See
-[`rules/README.md`](./rules) for the per-file breakdown. The session-log rule lives
-separately with its template under [`templates/docs/claude-rules`](../../templates/docs/claude-rules).
+[`rules/README.md`](./rules) for the per-file breakdown. The `current-state` rule lives
+separately with the session-metrics scaffolding under
+[`templates/docs/session-metrics/claude-rules`](../../templates/docs/session-metrics/claude-rules).
 
 ## Where it goes
 

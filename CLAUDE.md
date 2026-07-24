@@ -63,10 +63,11 @@ rationale, not the Next-locked reference configs.
 ## Documentation discipline
 
 Per Laurie's global conventions: repo presents **current-state only** (no
-"superseded" banners in-repo). Reusable doc scaffolding — ADR template and
-`project_log` — lives under [`templates/docs/`](./templates/docs); offer a
-project-log entry after a substantive session and propose an ADR when an
-architectural decision lands.
+"superseded" banners in-repo). Reusable doc scaffolding — ADR template plus the
+session-metrics records + `current-state` + `/wrap` skill — lives under
+[`templates/docs/`](./templates/docs); propose an ADR when an architectural decision
+lands. (This repo itself keeps no session log — its record is the git commit history;
+the narrative `project_log` practice has been retired in favor of session-metrics.)
 
 ## License
 

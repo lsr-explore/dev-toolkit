@@ -11,8 +11,11 @@ pipeline.
 | --- | --- | --- |
 | [`ci.yml`](./ci.yml) | `.github/workflows/ci.yml` | The lint/typecheck/test workflow |
 | [`pull_request_template.md`](./pull_request_template.md) | `.github/pull_request_template.md` | Auto-fills new PR descriptions |
-| [`issue_template.md`](./issue_template.md) | `.github/ISSUE_TEMPLATE.md` | Default new-issue body |
 | [`dependabot.yml`](./dependabot.yml) | `.github/dependabot.yml` | Automated dependency-update PRs |
+| **Issues — pick one paradigm (see below)** | | |
+| [`bug.yml`](./bug.yml) · [`feature.yml`](./feature.yml) · [`epic.yml`](./epic.yml) | `.github/ISSUE_TEMPLATE/` | Structured **issue forms** — typed fields, required validation, auto-labels |
+| [`config.yml`](./config.yml) | `.github/ISSUE_TEMPLATE/config.yml` | Forms chooser config — keeps the "blank issue" escape hatch |
+| [`issue_template.md`](./issue_template.md) | `.github/ISSUE_TEMPLATE.md` | *Alternative:* one combined bug/feature markdown default |
 
 ## Use the workflow
 
@@ -33,26 +36,57 @@ pipeline.
 The `concurrency` block cancels superseded runs on the same branch/PR so stale
 jobs don't pile up — no change needed.
 
-## PR & issue templates
+## PR template
 
-Both are plain Markdown — copy them to the paths in the table above and GitHub
-picks them up automatically (no config). They're deliberately minimal; trim or
-extend the sections to fit.
+Plain Markdown — copy it to `.github/pull_request_template.md` and GitHub picks it
+up automatically (no config). It opens with a related-issue line (`Resolves #123`
+links and auto-closes the issue), then what/why, a screenshots/video prompt, and a
+checklist of conditional reminders — clean diff (no stray debug/files), performance,
+security, docs, and accessibility. It also carries two authoring tips: leave inline
+diff comments prefaced with "Note to reviewer:", and consider an AI review pass
+before requesting human review. Deliberately minimal — trim or extend to fit.
 
-- **PR template** opens with a related-issue line (`Resolves #123` links and
-  auto-closes the issue), then what/why, a screenshots/video prompt, and a checklist
-  of conditional reminders — clean diff (no stray debug/files), performance,
-  security, docs, and accessibility. It also carries two authoring tips: leave
-  inline diff comments prefaced with "Note to reviewer:", and consider an AI review
-  pass before requesting human review.
-- **Issue template** is one combined bug/feature form with no front matter — it
-  drops in at `.github/ISSUE_TEMPLATE.md` as the default issue body (set labels,
-  type, and assignees from the GitHub sidebar). The bug side prompts for
-  expected-vs-actual, repro steps, variations / error cases, sample data,
-  screenshots, and environment; the feature side prompts for motivation, demo
-  steps, sample data, and mockups. For a chooser instead, move it under
-  `.github/ISSUE_TEMPLATE/` and add `name:`/`about:` front matter (or split into
-  `bug_report.md` + `feature_request.md`).
+## Issue templates — two paradigms, pick one
+
+There are two ways to seed new issues here. **Don't ship both** — GitHub will offer
+the markdown default *and* the forms chooser, which is confusing. Pick the row that
+fits and delete the other file(s).
+
+### A. Structured issue forms (`bug.yml` / `feature.yml` / `epic.yml` + `config.yml`)
+
+The richer option, and the one to reach for on a real project. Copy the `.yml`
+files into `.github/ISSUE_TEMPLATE/`; GitHub renders each as a form with **typed
+fields, `required` validation, and auto-applied `labels`** (the issue *type* comes
+from the label — `bug` / `enhancement` / `epic` — not the title). `config.yml` sets
+`blank_issues_enabled: true` so a quick throwaway ticket is still one click away.
+
+- **`bug.yml`** — repro steps, data-to-reproduce (no secrets), screenshots, impact,
+  plus optional safety / tech / a11y notes.
+- **`feature.yml`** — overview, acceptance criteria, demo steps, sample data,
+  screenshots, plus optional safety / tech / a11y / open-questions notes.
+- **`epic.yml`** — goal, in/out of scope, done-when, ADR links; children link up via
+  the native **Parent** sub-issue field rather than a hand-kept checklist.
+
+All three share a title convention: prefix with the app/package scope (e.g.
+`companion:`, `console:`). Trim the optional fields your project doesn't use — the
+safety / a11y buckets are there for triage-calibration and accessibility work and
+won't fit every repo.
+
+### B. Single combined markdown default (`issue_template.md`)
+
+The minimal, zero-config fallback. Drops in at `.github/ISSUE_TEMPLATE.md` as the
+default issue body (set labels, type, and assignees from the GitHub sidebar). It's
+**one combined bug/feature form** — fill the half that matches, delete the other.
+The bug side prompts for expected-vs-actual, repro steps, variations / error cases,
+sample data, screenshots, and environment; the feature side prompts for motivation,
+demo steps, sample data, and mockups.
+
+**When to pick which:** forms (A) when you want consistent, machine-parseable issues
+with enforced fields and auto-labels — worth it once more than one person files
+issues. The single markdown default (B) when you want the lightest possible setup
+with no chooser and no per-type maintenance. To turn (B) into a chooser instead,
+move it under `.github/ISSUE_TEMPLATE/` and add `name:`/`about:` front matter (or
+split into `bug_report.md` + `feature_request.md`).
 
 ## Dependabot
 

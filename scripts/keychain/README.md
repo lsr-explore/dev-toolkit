@@ -53,7 +53,7 @@ api_key = get_secret("ANTHROPIC_API_KEY")
 
 Both default the service to `dev-keys`; pass a second argument to override.
 
-Run either helper directly to **verify** a key is retrievable. To avoid spilling
+Run either helper directly for a quick **retrievability** check. To avoid spilling
 the secret to your terminal, the CLI prints only the last six characters — use
 the library API in code to get the real value:
 
@@ -64,6 +64,45 @@ python get_secret.py ANTHROPIC_API_KEY
 npx tsx get-secret.ts ANTHROPIC_API_KEY
 # ✓ ANTHROPIC_API_KEY retrieved from 'dev-keys' (…AbC123)
 ```
+
+## Verify a key ([`verify-secret.ts`](./verify-secret.ts) / [`verify_secret.py`](./verify_secret.py))
+
+The `get-secret` CLI above answers only "is it there?". The **verify** scripts are a
+fuller preflight — run one before a deploy or after rotating a key. They take the
+lookup config from the **environment** (nothing hard-coded, per
+[§2 below](#2-keep-the-lookup-config-account--service-out-of-git)) and run four
+checks, stopping at the first failure with a non-zero exit:
+
+1. **retrievable** — the secret exists under `(service, account)`
+2. **non-empty** — it isn't blank / whitespace
+3. **format** — matches the expected prefix/shape, *if* one is known or supplied
+4. **live** *(opt-in, `--live`)* — a real provider auth call proves the key actually works
+
+```bash
+# format check only (no network)
+KEYCHAIN_ACCOUNT=ANTHROPIC_API_KEY python verify_secret.py
+KEYCHAIN_ACCOUNT=ANTHROPIC_API_KEY npx tsx verify-secret.ts
+
+# add a live probe against the provider (Node uses built-in fetch; Python uses urllib)
+KEYCHAIN_ACCOUNT=ANTHROPIC_API_KEY npx tsx verify-secret.ts --live
+```
+
+Environment variables:
+
+| Var | Required | Purpose |
+| --- | --- | --- |
+| `KEYCHAIN_ACCOUNT` | yes | key name to look up (e.g. `ANTHROPIC_API_KEY`) |
+| `KEYCHAIN_SERVICE` | no (`dev-keys`) | keyring service |
+| `KEYCHAIN_PROVIDER` | no | provider id for the format + live checks; **inferred from the account name** when unset |
+| `KEYCHAIN_KEY_PATTERN` | no | a regex source string to override the format check |
+
+Format patterns and live probes live in a small **`PROVIDERS` registry** at the top
+of each script — `anthropic` and `openai` ship as examples. Add your own there; it's
+the one place that knows a provider's key shape and its cheap auth endpoint (the live
+probe hits a list endpoint and reads the status: `200` → accepted, `401`/`403` →
+rejected). With no known provider and no `KEYCHAIN_KEY_PATTERN`, the format step is
+skipped (and reported as skipped) rather than failing. Like `get-secret`, these never
+print the secret — only its last six characters.
 
 ## Integration guidance
 
